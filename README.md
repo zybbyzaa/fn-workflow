@@ -11,4 +11,4 @@
 ## 目录结构
 
 
-## 配置文件 `config.js`
+## 配置文件 `.fnworkflowrc`
