@@ -19,6 +19,21 @@ module.exports = {
 			css: './dev/css',
 			html: './dev/html',
 			js: './dev/js'
+		},
+		tmp: {
+			dir: './tmp',
+			css: './tmp/css',
+			img: './tmp/img',
+			html: './tmp/html',
+			sprite: './tmp/sprite',
+			js: './tmp/js'
+		},
+		dist: {
+			dir: './dist',
+			css: './dist/css',
+			img: './dist/img',
+			html: './dist/html',
+			sprite: './dist/sprite'
 		}
 	},
 	"livereload": {
