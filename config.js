@@ -17,6 +17,8 @@ module.exports = {
 		dev: {
 			dir: './dev',
 			css: './dev/css',
+			img: './dev/img',
+			sprite: './dev/sprite',
 			html: './dev/html',
 			js: './dev/js'
 		},
@@ -59,4 +61,3 @@ module.exports = {
 	"supportChanged": false,
 	"reversion": true
 }
-

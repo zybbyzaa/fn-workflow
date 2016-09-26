@@ -9,8 +9,8 @@ module.exports = function (gulp, common) {
          'compile_sass',
          'compile_postcss',
          'compile_js',
-         'compile_img',
          'minify_img',
-         'minify_sprite', cb)
+         'minify_sprite',
+         'watch', cb)
     });
 }

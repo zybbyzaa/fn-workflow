@@ -8,36 +8,36 @@ function watchHandler (type, file) {
         case 'img':
             if (type === 'removed') {
                 var tmp = file.replace(/src/, 'dev');
-                del([tmp]);
+                // del([tmp]);
             } else {
-                copyHandler('img', file);
+                // copyHandler('img', file);
             }
             break;
 
         case 'slice':
             if (type === 'removed') {
                 var tmp = file.replace('src', 'dev');
-                del([tmp]);
+                // del([tmp]);
             } else {
-                copyHandler('slice', file);
+                // copyHandler('slice', file);
             }
             break;
 
         case 'js':
             if (type === 'removed') {
                 var tmp = file.replace('src', 'dev');
-                del([tmp]);
+                // del([tmp]);
             } else {
-                compileJs();
+                // compileJs();
             }
             break;
 
         case 'media':
             if (type === 'removed') {
                 var tmp = file.replace('src', 'dev');
-                del([tmp]);
+                // del([tmp]);
             } else {
-                copyHandler('media', file);
+                // copyHandler('media', file);
             }
             break;
 
@@ -47,12 +47,12 @@ function watchHandler (type, file) {
 
             if (type === 'removed') {
                 var tmp = file.replace('src', 'dev').replace(ext, '.css');
-                del([tmp]);
+                // del([tmp]);
             } else {
                 if (ext === '.less') {
-                    compileLess();
+                    // compileLess();
                 } else {
-                    compileSass();
+                    // compileSass();
                 }
             }
 
@@ -60,18 +60,18 @@ function watchHandler (type, file) {
 
         case 'html':
             if (type === 'removed') {
-                var tmp = file.replace('src', 'dev');
-                del([tmp]).then(function () {
-                    util.loadPlugin('build_dev');
-                });
+                // var tmp = file.replace('src', 'dev');
+                // del([tmp]).then(function () {
+                //     util.loadPlugin('build_dev');
+                // });
             } else {
-                compileHtml();
+                // compileHtml();
             }
 
             if (type === 'add') {
-                setTimeout(function () {
-                    util.loadPlugin('build_dev');
-                }, 500);
+                // setTimeout(function () {
+                //     util.loadPlugin('build_dev');
+                // }, 500);
             }
 
             break;
@@ -81,9 +81,16 @@ function watchHandler (type, file) {
 
 module.exports = function (gulp, common) {
   gulp.task('watch', function() {
-    gulp.watch(common.config.paths.src.sassAll,function(event) {
+    gulp.watch([common.config.paths.src.img,
+                common.config.paths.src.slice,
+                common.config.paths.src.js,
+                common.config.paths.src.media,
+                common.config.paths.src.lessAll,
+                common.config.paths.src.sassAll,
+                common.config.paths.src.htmlAll],function(event) {
         common.plugins.util.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-        runSequence(compile_sass,compile_postcss);
+        console.log(event.path);
+        watchHandler(event.type, event.path);
     })
   });
 };
