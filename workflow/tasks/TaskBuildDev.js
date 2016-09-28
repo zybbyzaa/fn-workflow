@@ -6,10 +6,8 @@ module.exports = function (gulp, common) {
     gulp.task('build_dev', function(cb){
         runSequence(
          'log_version',
-         'del_dev',
-         'del_tmp',
-         'compile_sass',
-         'compile_postcss',
+         'clean',
+         'compile_css',
          'compile_js',
          'minify_img',
          'minify_sprite',

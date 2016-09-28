@@ -14,6 +14,7 @@ module.exports = function (gulp, common) {
             if (type === 'removed') {
                 var tmp = file.replace(/src/, 'dev');
                 del([tmp]);
+                common.plugins.util.log(common.plugins.util.colors.red('File ' + tmp + ' was ' + type));
             } else {
                 runSequence('minify_img');
             }
@@ -27,6 +28,7 @@ module.exports = function (gulp, common) {
             if (type === 'removed') {
                 var tmp = file.replace('src', 'dev');
                 del([tmp]);
+                common.plugins.util.log(common.plugins.util.colors.red('File ' + tmp + ' was ' + type));
             } else {
                 runSequence('compile_js');
             }
@@ -36,6 +38,7 @@ module.exports = function (gulp, common) {
             if (type === 'removed') {
                 var tmp = file.replace('src', 'dev');
                 del([tmp]);
+                common.plugins.util.log(common.plugins.util.colors.red('File ' + tmp + ' was ' + type));
             } else {
                 // copyHandler('media', file);
             }
@@ -48,6 +51,7 @@ module.exports = function (gulp, common) {
             if (type === 'removed') {
                 var tmp = file.replace('src', 'dev').replace(ext, '.css');
                 del([tmp]);
+                common.plugins.util.log(common.plugins.util.colors.red('File ' + tmp + ' was ' + type));
             } else {
                 if (ext === '.less') {
                     // compileLess();
@@ -64,6 +68,7 @@ module.exports = function (gulp, common) {
                 del([tmp]).then(function () {
                     lib.loadPlugin('build_dev');
                 });
+                common.plugins.util.log(common.plugins.util.colors.red('File ' + tmp + ' was ' + type));
             } else {
                 runSequence('compile_html');
             }
@@ -83,11 +88,9 @@ module.exports = function (gulp, common) {
     gulp.watch([common.config.paths.src.img,
                 common.config.paths.src.slice,
                 common.config.paths.src.js,
-                common.config.paths.src.media,
                 common.config.paths.src.lessAll,
                 common.config.paths.src.sassAll,
                 common.config.paths.src.htmlAll],function(event) {
-        common.plugins.util.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
         var type = event.type;
         var file = event.path.replace(/\\/g,'\/');
         watchHandler(type, file);
