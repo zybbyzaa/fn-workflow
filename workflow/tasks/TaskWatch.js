@@ -1,85 +1,84 @@
 // 监听文件变动
 var runSequence = require('run-sequence');
+var path = require('path');
+var del = require('del');
+var lib = require('../util/lib');
 
-function watchHandler (type, file) {
-    var target = file.match(/^src[\/|\\](.*?)[\/|\\]/)[1];
 
-    switch (target) {
-        case 'img':
+module.exports = function (gulp, common) {
+    function watchHandler (type, file) {
+        var target = file.match(/src[\/|\\](.*?)[\/|\\]/)[1];
+
+        switch (target) {
+            case 'img':
             if (type === 'removed') {
                 var tmp = file.replace(/src/, 'dev');
-                // del([tmp]);
+                del([tmp]);
             } else {
-                // copyHandler('img', file);
+                runSequence('minify_img');
             }
             break;
 
-        case 'slice':
+            case 'slice':
+            runSequence('compile_sass','compile_postcss','minify_sprite');
+            break;
+
+            case 'js':
             if (type === 'removed') {
                 var tmp = file.replace('src', 'dev');
-                // del([tmp]);
+                del([tmp]);
             } else {
-                // copyHandler('slice', file);
+                runSequence('compile_js');
             }
             break;
 
-        case 'js':
+            case 'media':
             if (type === 'removed') {
                 var tmp = file.replace('src', 'dev');
-                // del([tmp]);
-            } else {
-                // compileJs();
-            }
-            break;
-
-        case 'media':
-            if (type === 'removed') {
-                var tmp = file.replace('src', 'dev');
-                // del([tmp]);
+                del([tmp]);
             } else {
                 // copyHandler('media', file);
             }
             break;
 
-        case 'css':
+            case 'css':
 
             var ext = path.extname(file);
 
             if (type === 'removed') {
                 var tmp = file.replace('src', 'dev').replace(ext, '.css');
-                // del([tmp]);
+                del([tmp]);
             } else {
                 if (ext === '.less') {
                     // compileLess();
                 } else {
-                    // compileSass();
+                    runSequence('compile_sass','compile_postcss','minify_sprite');
                 }
             }
 
             break;
 
-        case 'html':
+            case 'html':
             if (type === 'removed') {
-                // var tmp = file.replace('src', 'dev');
-                // del([tmp]).then(function () {
-                //     util.loadPlugin('build_dev');
-                // });
+                var tmp = file.replace('src', 'dev');
+                del([tmp]).then(function () {
+                    lib.loadPlugin('build_dev');
+                });
             } else {
-                // compileHtml();
+                runSequence('compile_html');
             }
 
             if (type === 'add') {
-                // setTimeout(function () {
-                //     util.loadPlugin('build_dev');
-                // }, 500);
+                setTimeout(function () {
+                    lib.loadPlugin('build_dev');
+                }, 500);
             }
 
             break;
-    }
+        }
 
-};
+    };
 
-module.exports = function (gulp, common) {
   gulp.task('watch', function() {
     gulp.watch([common.config.paths.src.img,
                 common.config.paths.src.slice,
@@ -89,8 +88,10 @@ module.exports = function (gulp, common) {
                 common.config.paths.src.sassAll,
                 common.config.paths.src.htmlAll],function(event) {
         common.plugins.util.log('File ' + event.path + ' was ' + event.type + ', running tasks...');
-        console.log(event.path);
-        watchHandler(event.type, event.path);
+        var type = event.type;
+        var file = event.path.replace(/\\/g,'\/');
+        watchHandler(type, file);
+        lib.reloadhandle();
     })
   });
 };

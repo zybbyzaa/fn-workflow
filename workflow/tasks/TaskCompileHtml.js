@@ -7,7 +7,7 @@ module.exports = function (gulp, common) {
     common.plugins.util.log('开始编译html');
     return gulp.src(common.config.paths.src.html)
         .pipe(common.plugins.ejs(ejshelper()))
-        .pipe(gulpif(
+        .pipe(common.plugins.if(
             common.config.supportREM,
             common.plugins.posthtml(
                 posthtmlPx2rem({

@@ -70,9 +70,9 @@ var lib = {
     },
     checkDateFormat: function(_date) {
         if (_date < 10) {
-            _date = '0' + _date; 
+            _date = '0' + _date;
         }
-        return _date; 
+        return _date;
     },
     getCurrentTime: function(){
     var _time = new Date(),
@@ -95,6 +95,9 @@ var lib = {
                 return  _array.slice(0, _i).concat(_array.slice(_i + 1, _array.length));
             }
         }
+    },
+    reloadhandle: function(){
+        common.config.livereload && common.reload();
     }
 };
 

@@ -57,7 +57,7 @@ module.exports = {
 	],
 
 	"supportWebp": false,
-	"supportREM": true,
+	"supportREM": false,
 	"supportChanged": false,
 	"reversion": true
 }
