@@ -1,6 +1,7 @@
 // 编译html文件
 var ejshelper = require('tmt-ejs-helper');
 var posthtmlPx2rem = require('posthtml-px2rem');
+var lib = require('../util/lib');
 
 module.exports = function (gulp, common) {
   gulp.task('compile_html', function() {
@@ -16,6 +17,9 @@ module.exports = function (gulp, common) {
                 })
             ))
         )
-        .pipe(gulp.dest(common.config.paths.dev.html));
+        .pipe(gulp.dest(common.config.paths.dev.html))
+        .on('end',function(){
+            lib.task_log('compile_html');
+        });
   });
 };

@@ -9,7 +9,7 @@ module.exports = {
 			"js": './src/js/**/*.js',
 			"less": './src/css/style-*.less',
 			"lessAll": './src/css/**/*.less',
-			"sass": './src/css/style-*.scss',
+			"sass": ['./src/css/style-*.scss','./src/css/m/style-*.scss'],
 			"sassAll": './src/css/**/*.scss',
 			"html": ['./src/html/**/*.html', '!./src/html/_*/**.html', '!./src/html/_*/**/**.html'],
 			"htmlAll": './src/html/**/*.html'
@@ -41,7 +41,7 @@ module.exports = {
 	"livereload": {
 		"available": true,
 		//开启自动刷新
-		"port": 8080,
+		"port": 3001,
 		"startPath": "html/TmTIndex.html"
 	},
 	//路径相对于 workflow/lib 目录

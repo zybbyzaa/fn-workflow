@@ -15,5 +15,6 @@ module.exports = function (gulp, common) {
           del([common.config.paths.dist.dir]);
           common.plugins.util.log(common.plugins.util.colors.red('删除dist目录成功'));
       }
+      lib.task_log('clean');
   });
 };

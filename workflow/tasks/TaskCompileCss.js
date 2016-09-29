@@ -2,6 +2,7 @@
 var postcssPxtorem = require('postcss-pxtorem'); // 转换 px 为 rem
 var postcssAutoprefixer = require('autoprefixer');
 var postcssCssgrace = require('cssgrace');
+var lib = require('../util/lib');
 
 module.exports = function (gulp, common) {
     var postcssOption = [];
@@ -29,6 +30,9 @@ module.exports = function (gulp, common) {
         .pipe(common.plugins.if('*.png', gulp.dest(common.config.paths.tmp.sprite), gulp.dest(common.config.paths.tmp.css)))
         .pipe(gulp.src(common.config.paths.tmp.css+'/style-*.css'))
         .pipe(common.plugins.postcss(postcssOption))
-        .pipe(gulp.dest(common.config.paths.dev.css));
+        .pipe(gulp.dest(common.config.paths.dev.css))
+        .on('end',function(){
+            lib.task_log('compile_css');
+        });
   });
 };

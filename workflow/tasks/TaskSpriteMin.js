@@ -1,5 +1,6 @@
 // 压缩js文件
 var pngquant = require('imagemin-pngquant');
+var lib = require('../util/lib');
 
 module.exports = function (gulp, common) {
   gulp.task('minify_sprite', function() {
@@ -8,6 +9,9 @@ module.exports = function (gulp, common) {
         .pipe(common.plugins.imagemin({
             use: [pngquant()]
         }))
-        .pipe(gulp.dest(common.config.paths.dev.sprite));
+        .pipe(gulp.dest(common.config.paths.dev.sprite))
+        .on('end',function(){
+            lib.task_log('minify_sprite');
+        });
   });
 };
