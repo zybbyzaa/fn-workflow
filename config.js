@@ -1,23 +1,25 @@
 module.exports = {
 	"projectName": "fn-workflow",
 	"platform": "pc",
+	"cssplatform": "sass",
 	"paths": {
 		"src": {
 			"dir": './src',
-			"img": './src/img/**/*.{JPG,jpg,png,gif,svg}',
-			"slice": './src/slice/**/*.png',
+			"img": './src/images/**/**/*.{JPG,jpg,png,gif,svg}',
+			"slice": './src/slice/**/**/*.png',
 			"js": './src/js/**/*.js',
-			"less": './src/css/style-*.less',
+			"css": ['./src/css/style-*.*','./src/css/m/style-*.*'],
+			"less": ['./src/css/style-*.less','./src/css/m/style-*.less'],
 			"lessAll": './src/css/**/*.less',
 			"sass": ['./src/css/style-*.scss','./src/css/m/style-*.scss'],
 			"sassAll": './src/css/**/*.scss',
-			"html": ['./src/html/**/*.html', '!./src/html/_*/**.html', '!./src/html/_*/**/**.html'],
+			"html": ['./src/html/**/*.html', '!./src/html/include/**.html', '!./src/html/include/**/**.html'],
 			"htmlAll": './src/html/**/*.html'
 		},
 		"dev": {
 			"dir": './dev',
 			"css": './dev/css',
-			"img": './dev/img',
+			"img": './dev/images',
 			"sprite": './dev/sprite',
 			"html": './dev/html',
 			"js": './dev/js'
@@ -25,7 +27,7 @@ module.exports = {
 		"tmp": {
 			"dir": './tmp',
 			"css": './tmp/css',
-			"img": './tmp/img',
+			"img": './tmp/images',
 			"html": './tmp/html',
 			"sprite": './tmp/sprite',
 			"js": './tmp/js'
@@ -33,15 +35,16 @@ module.exports = {
 		"dist": {
 			"dir": './dist',
 			"css": './dist/css',
-			"img": './dist/img',
+			"img": './dist/images',
 			"html": './dist/html',
-			"sprite": './dist/sprite'
+			"sprite": './dist/sprite',
+			"js": './dist/js'
 		}
 	},
 	"livereload": {
 		"available": true,
 		//开启自动刷新
-		"port": 3001,
+		"port": 3030,
 		"startPath": "html/TmTIndex.html"
 	},
 	//路径相对于 workflow/lib 目录
@@ -65,10 +68,5 @@ module.exports = {
 	"lazyDir": [
 		"../slice"
 	],
-	"supportWebp": false,
-	"supportREM": false,
-	"supportSass": true,
-	"supportLess": false,
-	"supportChanged": false,
-	"reversion": true
+	"supportREM": false
 }

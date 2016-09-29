@@ -9,6 +9,7 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "gulp-ejs": "^2.2.0",
+    "gulp-filter": "^4.0.0",
     "gulp-help": "^1.6.1",
     "gulp-if": "^2.0.1",
     "gulp-imagemin": "^3.0.3",
