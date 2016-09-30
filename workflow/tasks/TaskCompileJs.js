@@ -9,7 +9,7 @@ module.exports = function (gulp, common) {
             .pipe(common.plugins.if(argv.env == 'prod',gulp.dest(common.config.paths.dist.js),gulp.dest(common.config.paths.dev.js)))
             .pipe(common.plugins.if(argv.env == 'prod',common.plugins.uglify()))
             .pipe(common.plugins.if(argv.env == 'prod',common.plugins.rename({ suffix: '.min' })))
-            .pipe(common.plugins.if(argv.env == 'prod',gulp.dest(common.config.paths.dev.js)))
+            .pipe(common.plugins.if(argv.env == 'prod',gulp.dest(common.config.paths.dist.js)))
             .on('end',function(){
                 lib.task_log('compile_js');
             });

@@ -36,7 +36,7 @@ module.exports = function (gulp, common) {
             .pipe(common.plugins.if(argv.env == 'prod',gulp.dest(common.config.paths.dist.css),gulp.dest(common.config.paths.dev.css)))
             .pipe(common.plugins.if(argv.env == 'prod',common.plugins.cleanCss()))
             .pipe(common.plugins.if(argv.env == 'prod',common.plugins.rename({ suffix: '.min' })))
-            .pipe(common.plugins.if(argv.env == 'prod',gulp.dest(common.config.paths.dev.css)))
+            .pipe(common.plugins.if(argv.env == 'prod',gulp.dest(common.config.paths.dist.css)))
             .on('end',function(){
                 lib.task_log('compile_css');
             });
