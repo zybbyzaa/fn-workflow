@@ -3,7 +3,6 @@ node_modules
 npm-debug.log
 .idea
 .zip
-src
 tmp
 dev
 dist
