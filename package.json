@@ -35,8 +35,8 @@
     "yargs": "^5.0.0"
   },
   "scripts": {
-    "dev": "gulp build_dev --env dev",
-    "prod": "gulp build_dist --env prod"
+    "dev": "gulp clean && gulp build_dev --env dev",
+    "prod": "gulp clean && gulp build_dist --env prod"
   },
   "description": "A f2e project workflow based on Gulp and tmt-workflow",
   "repository": {

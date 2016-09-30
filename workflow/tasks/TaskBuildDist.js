@@ -6,7 +6,6 @@ module.exports = function (gulp, common) {
     gulp.task('build_dist', function(cb){
         runSequence(
             'log_version',
-             'clean',
              'compile_css',
              'compile_js',
              'minify_img',
