@@ -8,7 +8,7 @@ module.exports = {
 			"img": './src/images/**/**/*.{JPG,jpg,png,gif,svg}',
 			"slice": './src/slice/**/**/*.png',
 			"js": './src/js/**/*.js',
-			"css": ['./src/css/style-*.*','./src/css/m/style-*.*'],
+			"css": ['./src/css/style-*.{scss,less}','./src/css/m/style-*.{scss,less}'],
 			"less": ['./src/css/style-*.less','./src/css/m/style-*.less'],
 			"lessAll": './src/css/**/*.less',
 			"sass": ['./src/css/style-*.scss','./src/css/m/style-*.scss'],

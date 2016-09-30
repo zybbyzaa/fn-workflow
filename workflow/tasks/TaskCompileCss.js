@@ -14,7 +14,7 @@ module.exports = function (gulp, common) {
     ]
 
     gulp.task('compile_css', function() {
-        var f = common.plugins.filter('!src/m/style-*.css',{restore: true});
+        var f = common.plugins.filter('!tmp/css/m/style-*.css',{restore: true});
         common.plugins.util.log('开始编译sass');
         return gulp.src(common.config.paths.src.css)
             .pipe(common.plugins.if(common.config.cssplatform == 'sass',common.plugins.sass()))
@@ -27,7 +27,7 @@ module.exports = function (gulp, common) {
             .pipe(common.plugins.if('*.png',
                 gulp.dest(common.config.paths.tmp.sprite),
                 gulp.dest(common.config.paths.tmp.css)))
-            .pipe(gulp.src([common.config.paths.tmp.css+'/style-*.css',common.config.paths.tmp.css+'/m/style-*.css']))
+            .pipe(gulp.src(common.config.paths.tmp.css))
             .pipe(common.plugins.postcss(postcssOption))
             .pipe(f)
             .pipe(common.plugins.if(common.config.supportREM,
