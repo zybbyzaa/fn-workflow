@@ -13,8 +13,8 @@ module.exports = {
 			"lessAll": './src/css/**/*.less',
 			"sass": ['./src/css/style-*.scss','./src/css/m/style-*.scss'],
 			"sassAll": './src/css/**/*.scss',
-			"html": ['./src/html/**/*.html', '!./src/html/include/**.html', '!./src/html/include/**/**.html'],
-			"htmlAll": './src/html/**/*.html'
+			"html": ['./src/html/**/*.html'.'./src/html/m/**/*.html', '!./src/html/include/**.html', '!./src/html/m/include/**.html'],
+			"htmlAll": './src/html/**/**/*.html'
 		},
 		"dev": {
 			"dir": './dev',
