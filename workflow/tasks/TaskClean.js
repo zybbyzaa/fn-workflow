@@ -2,11 +2,7 @@ var lib = require('../util/lib');
 var del = require('del');
 
 module.exports = function (gulp, common) {
-    gulp.task('clean', function() {
-        if(lib.dirExist(common.config.paths.dev.dir)){
-            del([common.config.paths.dev.dir]);
-            common.plugins.util.log(common.plugins.util.colors.red('删除dev目录成功'));
-        }
+    gulp.task('clean',['log_version'], function() {
         if(lib.dirExist(common.config.paths.tmp.dir)){
           del([common.config.paths.tmp.dir]);
           common.plugins.util.log(common.plugins.util.colors.red('删除tmp目录成功'));

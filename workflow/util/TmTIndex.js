@@ -28,8 +28,8 @@ module.exports = function (config) {
             '       <tbody class="table-body">'
         ].join(''),
         tmpHtml = '',
-        length = '/dev/html/'.length,
-        collector = listdir('./dev/html'),
+        length = '/dist/html/'.length,
+        collector = listdir('./dist/html'),
         ip = localIp.getLocalIP4();
 
 
@@ -49,7 +49,7 @@ module.exports = function (config) {
             var absolutePath = dir + '/' + file,
                 stats = fs.statSync(absolutePath);
 
-            var url = absolutePath.substring(absolutePath.indexOf('./dev/html/') + length + 1);
+            var url = absolutePath.substring(absolutePath.indexOf('./dist/html/') + length + 1);
 
             if (stats.isDirectory() && (stats.isDirectory() !== '.' || stats.isDirectory() !== '..')) {
                 collector['child'].push(listdir(absolutePath));
@@ -101,7 +101,7 @@ module.exports = function (config) {
 
     html += '</tbody></table><div id="qrcode"></div><script src="http://wximg.gtimg.com/tmt/tools/file-list/js/jquery-2.1.3.min.js"></script><script src="http://wximg.gtimg.com/tmt/tools/file-list/js/qrcode.min.js"></script><script type="text/javascript">$(document).ready(function(){ var url = location.href.replace("localhost", "' + ip + '");document.title= "' + config.projectName + ' 资源列表";  $(".level1").prependTo(".table-body"); $(".td-qrcode i").bind("mouseenter ",function(){$("#qrcode").show().empty();new QRCode(document.getElementById("qrcode"), encodeURI(url.split("TmTIndex.html")[0]+$(this).parent().parent().find("a").attr("href")));});$("body").bind("click",function(){$("#qrcode").hide();});});</script></body></html>';
 
-    var out = fs.createWriteStream('./dev/html/TmTIndex.html', {encoding: "utf8"});
+    var out = fs.createWriteStream('./dist/html/TmTIndex.html', {encoding: "utf8"});
     out.write(html, function (err) {
         if (err) console.log(err);
     });

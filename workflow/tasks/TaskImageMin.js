@@ -10,7 +10,7 @@ module.exports = function (gulp, common) {
         .pipe(common.plugins.imagemin({
             use: [pngquant()]
         }))
-        .pipe(common.plugins.if(argv.env == 'prod',gulp.dest(common.config.paths.dist.img),gulp.dest(common.config.paths.dev.img)))
+        .pipe(gulp.dest(common.config.paths.dist.img))
         .on('end',function(){
             lib.task_log('minify_img');
         });

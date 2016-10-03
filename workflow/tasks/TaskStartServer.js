@@ -2,7 +2,7 @@ module.exports = function (gulp, common) {
     gulp.task('start_server', function() {
         common.plugins.util.log('启动服务');
         common.browserSync.init({
-            server: common.config.paths.dev.dir,
+            server: common.config.paths.dist.dir,
             port: common.config['livereload']['port'] || 8080,
             startPath: common.config['livereload']['startPath'] || '/html',
             reloadDelay: 0,

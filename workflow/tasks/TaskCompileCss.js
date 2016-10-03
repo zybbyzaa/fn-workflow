@@ -1,44 +1,92 @@
-// 编译sass文件
 var lib = require('../util/lib');
 var argv = require('yargs').argv;
 var postcssPxtorem = require('postcss-pxtorem'); // 转换 px 为 rem
 var postcssAutoprefixer = require('autoprefixer');
 var postcssCssgrace = require('cssgrace');
+var path = require('path');
+var runSequence = require('run-sequence');
+var merge = require('merge2');
 
 module.exports = function (gulp, common) {
+    var pcStream = null;
+    var mobileStream = null;
     var postcssOption = [
         postcssAutoprefixer({
             browsers: common.config["autoprefixer"][common.config.platform]
         }),
         postcssCssgrace
-    ]
+    ];
 
     gulp.task('compile_css', function() {
-        var f = common.plugins.filter('!tmp/css/m/style-*.css',{restore: true});
-        common.plugins.util.log('开始编译sass');
-        return gulp.src(common.config.paths.src.css)
-            .pipe(common.plugins.if(common.config.cssplatform == 'sass',common.plugins.sass()))
-            .on('error',common.plugins.sass.logError)
-            .pipe(common.plugins.if(common.config.cssplatform == 'less',common.plugins.less()))
-            .pipe(common.plugins.lazyimagecss({
-                imagePath: common.config.lazyDir
-            }))
-            .pipe(common.plugins.tmtsprite({margin: 4}))
-            .pipe(common.plugins.if('*.png',
-                gulp.dest(common.config.paths.tmp.sprite),
-                gulp.dest(common.config.paths.tmp.css)))
-            .pipe(gulp.src(common.config.paths.tmp.css))
-            .pipe(common.plugins.postcss(postcssOption))
-            .pipe(f)
-            .pipe(common.plugins.if(common.config.supportREM,
-                common.plugins.postcss([postcssPxtorem(common.config["postcssPxtorem"])])))
-            .pipe(f.restore)
-            .pipe(common.plugins.if(argv.env == 'prod',gulp.dest(common.config.paths.dist.css),gulp.dest(common.config.paths.dev.css)))
-            .pipe(common.plugins.if(argv.env == 'prod',common.plugins.cleanCss()))
-            .pipe(common.plugins.if(argv.env == 'prod',common.plugins.rename({ suffix: '.min' })))
-            .pipe(common.plugins.if(argv.env == 'prod',gulp.dest(common.config.paths.dist.css)))
-            .on('end',function(){
-                lib.task_log('compile_css');
-            });
+        if(common.config.cssplatform == 'sass'){
+            common.plugins.util.log('开始编译scss');
+        }
+        if(common.config.cssplatform == 'less'){
+            common.plugins.util.log('开始编译less');
+        }
+        if(common.config.platform !== 'mobile'){
+            pcStream = gulp.src(path.join(common.config.paths.src.css,'style-*.{scss,less}'))
+                .pipe(common.plugins.plumber(lib.handleErrors))
+                .pipe(common.plugins.changed(common.config.paths.tmp.css,{extension:'.css'}))
+                .pipe(common.plugins.logger({ showChange: true }))
+                .pipe(common.plugins.if(common.config.cssplatform == 'sass',common.plugins.sass()))
+                .on('error',common.plugins.sass.logError)
+                .pipe(common.plugins.if(common.config.cssplatform == 'less',common.plugins.less()))
+                .pipe(common.plugins.lazyimagecss({
+                    imagePath: common.config.lazyDir
+                }))
+                .pipe(common.plugins.tmtsprite({margin: 4}))
+                .pipe(common.plugins.if('*.png',
+                    gulp.dest(common.config.paths.tmp.sprite),
+                    gulp.dest(common.config.paths.tmp.css)))
+                .on('end',function(){
+                    common.plugins.util.log('pc端样式预处理编译完成');
+                })
+                .pipe(common.plugins.plumber(lib.handleErrors))
+                .pipe(common.plugins.changed(common.config.paths.dist.css))
+                .pipe(common.plugins.logger({ showChange: true }))
+                .pipe(common.plugins.postcss(postcssOption))
+                .pipe(gulp.dest(common.config.paths.dist.css))
+                .on('end',function(){
+                    common.plugins.util.log('pc端样式编译完成');
+                })
+                .pipe(common.plugins.if(argv.env == 'prod',common.plugins.cleanCss()))
+                .pipe(common.plugins.if(argv.env == 'prod',common.plugins.rename({ suffix: '.min' })))
+                .pipe(gulp.dest(common.config.paths.dist.css));
+        }
+        if(common.config.platform !== 'pc'){
+            if(common.config.supportREM){
+                postcssOption.push(postcssPxtorem(common.config["postcssPxtorem"]));
+            }
+            mobileStream =  gulp.src(path.join(common.config.paths.src.css,'m/style-*.{scss,less}'))
+                .pipe(common.plugins.plumber(lib.handleErrors))
+                .pipe(common.plugins.changed(path.join(common.config.paths.tmp.css,'m'),{extension:'.css'}))
+                .pipe(common.plugins.logger({ showChange: true }))
+                .pipe(common.plugins.if(common.config.cssplatform == 'sass',common.plugins.sass()))
+                .on('error',common.plugins.sass.logError)
+                .pipe(common.plugins.if(common.config.cssplatform == 'less',common.plugins.less()))
+                .pipe(common.plugins.lazyimagecss({
+                    imagePath: common.config.lazyDir
+                }))
+                .pipe(common.plugins.tmtsprite({margin: 4}))
+                .pipe(common.plugins.if('*.png',
+                    gulp.dest(common.config.paths.tmp.sprite),
+                    gulp.dest(path.join(common.config.paths.tmp.css,'m'))))
+                .on('end',function(){
+                    common.plugins.util.log('mobile端样式预处理编译完成');
+                })
+                .pipe(common.plugins.plumber(lib.handleErrors))
+                .pipe(common.plugins.changed(path.join(common.config.paths.dist.css,'m')))
+                .pipe(common.plugins.logger({ showChange: true }))
+                .pipe(common.plugins.postcss(postcssOption))
+                .pipe(gulp.dest(path.join(common.config.paths.dist.css,'m')))
+                .on('end',function(){
+                    common.plugins.util.log('mobile端样式编译完成');
+                })
+                .pipe(common.plugins.if(argv.env == 'prod',common.plugins.cleanCss()))
+                .pipe(common.plugins.if(argv.env == 'prod',common.plugins.rename({ suffix: '.min' })))
+                .pipe(gulp.dest(path.join(common.config.paths.dist.css,'m')));
+        }
+        lib.task_log('compile_css')        
     });
-};
+}

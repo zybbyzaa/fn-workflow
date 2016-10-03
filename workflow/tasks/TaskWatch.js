@@ -12,7 +12,7 @@ module.exports = function (gulp, common) {
         switch (target) {
             case 'images':
                 if (type === 'removed') {
-                    var tmp = file.replace(/src/, 'dev');
+                    var tmp = file.replace(/src/, 'dist');
                     del([tmp]);
                     common.plugins.util.log(common.plugins.util.colors.red('File ' + tmp + ' was ' + type));
                 } else {
@@ -21,12 +21,12 @@ module.exports = function (gulp, common) {
                 break;
 
             case 'slice':
-                runSequence('compile_sass','compile_postcss','minify_sprite');
+                runSequence('compile_precss','compile_css','minify_sprite');
                 break;
 
             case 'js':
                 if (type === 'removed') {
-                    var tmp = file.replace('src', 'dev');
+                    var tmp = file.replace('src', 'dist');
                     del([tmp]);
                     common.plugins.util.log(common.plugins.util.colors.red('File ' + tmp + ' was ' + type));
                 } else {
@@ -37,17 +37,17 @@ module.exports = function (gulp, common) {
             case 'css':
                 var ext = path.extname(file);
                 if (type === 'removed') {
-                    var tmp = file.replace('src', 'dev').replace(ext, '.css');
+                    var tmp = file.replace('src', 'dist').replace(ext, '.css');
                     del([tmp]);
                     common.plugins.util.log(common.plugins.util.colors.red('File ' + tmp + ' was ' + type));
                 } else {
-                    runSequence('compile_css','compile_postcss','minify_sprite');
+                    runSequence('compile_precss','compile_css','minify_sprite');
                 }
                 break;
 
             case 'html':
                 if (type === 'removed') {
-                    var tmp = file.replace('src', 'dev');
+                    var tmp = file.replace('src', 'dist');
                     del([tmp]).then(function () {
                         lib.loadPlugin('build_dev');
                     });
@@ -68,8 +68,7 @@ module.exports = function (gulp, common) {
         gulp.watch([common.config.paths.src.img,
                     common.config.paths.src.slice,
                     common.config.paths.src.js,
-                    common.config.paths.src.lessAll,
-                    common.config.paths.src.sassAll,
+                    common.config.paths.src.cssAll,
                     common.config.paths.src.htmlAll],function(event) {
             var type = event.type;
             var file = event.path.replace(/\\/g,'\/');

@@ -1,6 +1,6 @@
 module.exports = {
 	"projectName": "fn-workflow",
-	"platform": "pc",
+	"platform": "all",
 	"cssplatform": "sass",
 	"paths": {
 		"src": {
@@ -8,21 +8,10 @@ module.exports = {
 			"img": './src/images/**/**/*.{JPG,jpg,png,gif,svg}',
 			"slice": './src/slice/**/**/*.png',
 			"js": './src/js/**/*.js',
-			"css": ['./src/css/style-*.{scss,less}','./src/css/m/style-*.{scss,less}'],
-			"less": ['./src/css/style-*.less','./src/css/m/style-*.less'],
-			"lessAll": './src/css/**/*.less',
-			"sass": ['./src/css/style-*.scss','./src/css/m/style-*.scss'],
-			"sassAll": './src/css/**/*.scss',
-			"html": ['./src/html/**/*.html','./src/html/m/**/*.html', '!./src/html/include/**.html', '!./src/html/m/include/**.html'],
+			"css": './src/css',
+			"cssAll": './src/css/**/*.{scss,less}',
+			"html": './src/html',
 			"htmlAll": './src/html/**/**/*.html'
-		},
-		"dev": {
-			"dir": './dev',
-			"css": './dev/css',
-			"img": './dev/images',
-			"sprite": './dev/sprite',
-			"html": './dev/html',
-			"js": './dev/js'
 		},
 		"tmp": {
 			"dir": './tmp',
