@@ -7,7 +7,7 @@ module.exports = function (argv,common) {
     var name = argv.name;
     var precss = argv.css;
     var isMobile = argv.m;
-    var htmlPath = './src/html/include' + (isMobile ? 'm/include' : '') + name + '.html';
+    var htmlPath = './src/html/include/' + (isMobile ? 'm/include/' : '') + name + '.html';
     var cssPath = './src/css/' + (isMobile ? 'm/mod-' : 'mod-') + name + '.scss';
 
     var outHtml = fs.createWriteStream(htmlPath, {encoding: "utf8"});
