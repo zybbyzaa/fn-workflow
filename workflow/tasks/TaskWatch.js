@@ -21,7 +21,7 @@ module.exports = function (gulp, common) {
                 break;
 
             case 'slice':
-                runSequence('compile_css','minify_sprite');
+                runSequence('compile_css','compile_mcss','minify_sprite');
                 break;
 
             case 'js':
@@ -41,7 +41,7 @@ module.exports = function (gulp, common) {
                     del([tmp]);
                     common.plugins.util.log(common.plugins.util.colors.red('File ' + tmp + ' was ' + type));
                 } else {
-                    runSequence('compile_css','minify_sprite');
+                    runSequence('compile_css','compile_mcss','minify_sprite');
                 }
                 break;
 
@@ -62,6 +62,7 @@ module.exports = function (gulp, common) {
                 }
                 break;
         }
+        lib.reloadhandle();
     };
 
     gulp.task('watch', function() {
@@ -73,7 +74,6 @@ module.exports = function (gulp, common) {
             var type = event.type;
             var file = event.path.replace(/\\/g,'\/');
             watchHandler(type, file);
-            lib.reloadhandle();
         })
     });
 };
