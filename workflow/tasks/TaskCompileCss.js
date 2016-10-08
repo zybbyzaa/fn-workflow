@@ -42,6 +42,7 @@ module.exports = function (gulp, common) {
                 .on('end',function(){
                     common.plugins.util.log('pc端样式预处理编译完成');
                 })
+                .pipe(common.plugins.filter('*.css'))
                 .pipe(common.plugins.plumber(lib.handleErrors))
                 .pipe(common.plugins.changed(common.config.paths.dist.css))
                 .pipe(common.plugins.logger({ showChange: true }))
@@ -75,6 +76,7 @@ module.exports = function (gulp, common) {
                 .on('end',function(){
                     common.plugins.util.log('mobile端样式预处理编译完成');
                 })
+                .pipe(common.plugins.filter('*.css'))
                 .pipe(common.plugins.plumber(lib.handleErrors))
                 .pipe(common.plugins.changed(path.join(common.config.paths.dist.css,'m')))
                 .pipe(common.plugins.logger({ showChange: true }))
@@ -87,6 +89,6 @@ module.exports = function (gulp, common) {
                 .pipe(common.plugins.if(argv.env == 'prod',common.plugins.rename({ suffix: '.min' })))
                 .pipe(gulp.dest(path.join(common.config.paths.dist.css,'m')));
         }
-        lib.task_log('compile_css')        
+        lib.task_log('compile_css')
     });
 }
