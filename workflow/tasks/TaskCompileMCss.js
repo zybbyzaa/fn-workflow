@@ -51,7 +51,6 @@ module.exports = function (gulp, common) {
                 return false;
             }))
             .pipe(common.plugins.plumber(lib.handleErrors))
-            .pipe(common.plugins.changed(path.join(common.config.paths.dist.css,'m')))
             .pipe(common.plugins.logger({ showChange: true }))
             .pipe(common.plugins.postcss(postcssOption))
             .pipe(gulp.dest(path.join(common.config.paths.dist.css,'m')))
