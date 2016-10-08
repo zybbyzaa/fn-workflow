@@ -44,7 +44,12 @@ module.exports = function (gulp, common) {
             .on('end',function(){
                 common.plugins.util.log('mobile端样式预处理编译完成');
             })
-            .pipe(common.plugins.filter(path.join(common.config.paths.tmp.css,'m')))
+            .pipe(common.plugins.filter(function(file){
+                console.log(file);
+                if(/.css$/.test(file.path))
+                    return true;
+                return false;
+            }))
             .pipe(common.plugins.plumber(lib.handleErrors))
             .pipe(common.plugins.changed(path.join(common.config.paths.dist.css,'m')))
             .pipe(common.plugins.logger({ showChange: true }))
