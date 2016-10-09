@@ -26,8 +26,8 @@ module.exports = function (argv) {
             '<link rel="stylesheet" href="/css/m/style-'+name+'.css">',
             '</head>',
             '<body>',
-            '<script src="/js/lib/jquery-1.10.2.min.js"/>',
-            '<script src="/js/m/'+name+'.js"/>',
+            '<script src="/js/lib/jquery-1.10.2.min.js"></script>',
+            '<script src="/js/m/'+name+'.js"></script>',
             '</body>'
         ],
         'scss': [
