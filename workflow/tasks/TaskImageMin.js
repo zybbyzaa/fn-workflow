@@ -8,8 +8,10 @@ module.exports = function (gulp, common) {
     common.plugins.util.log('开始压缩图片');
     return gulp.src(common.config.paths.src.img)
         .pipe(common.plugins.imagemin({
+            progressive: true, // 无损压缩JPG图片
+            svgoPlugins: [{removeViewBox: false}], // 不移除svg的viewbox属性
             use: [pngquant()]
-        }))
+        },{verbose:true}))
         .pipe(gulp.dest(common.config.paths.dist.img))
         .on('end',function(){
             lib.task_log('minify_img');

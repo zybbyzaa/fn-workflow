@@ -6,7 +6,7 @@ module.exports = function (gulp, common) {
            srcCssPath = common.config.paths.tpl.modcss;
     var htmlName =  (isMobile ? 'm/' : '') + name + '.html',
            cssName = (isMobile ? 'm/mod-' : 'mod-') + name + '.scss';
-    var htmlPath = './src/html';
+    var htmlPath = './src/html/' + (isMobile ? 'm/' : '') + 'include';
     var cssPath = './src/css';
     gulp.task('new_mod', function() {
         gulp.src(srcHtmlPath)
