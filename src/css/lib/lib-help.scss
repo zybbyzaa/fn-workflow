@@ -37,3 +37,15 @@
 .hide {
     display: none;
 }
+.wrapper {
+  background-color: nth($colorBg,2);
+  min-width: 1170px;
+  margin: 0 auto;
+}
+.app-wrapper {
+    background-color: nth($colorBg,2);
+    width: 100%;
+    max-width: 7.5rem;
+    min-height: 100%;
+    margin: auto;
+}

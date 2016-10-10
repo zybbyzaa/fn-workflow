@@ -28,6 +28,14 @@ module.exports = {
 			"html": './dist/html',
 			"sprite": './dist/sprite',
 			"js": './dist/js'
+		},
+		"tpl": {
+			"html": './workflow/template/pageTemplate.html',
+			"mhtml": './workflow/template/mobilePageTemplate.html',
+			"css": './workflow/template/cssTemplate.scss',
+			"js": './workflow/template/jsTemplate.js',
+			"modhtml": './workflow/template/modHtmlTemplate.html',
+			"modcss": './workflow/template/modCssTemplate.scss'
 		}
 	},
 	"livereload": {
