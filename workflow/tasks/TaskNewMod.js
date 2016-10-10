@@ -13,13 +13,13 @@ module.exports = function (gulp, common) {
             .pipe(common.plugins.rename(htmlName))
             .pipe(gulp.dest(htmlPath))
             .on('end',function(){
-                common.plugins.util.log('创建文件' + htmlPath + htmlName   + '成功！');
+                common.plugins.util.log('创建文件' + htmlPath + '/' + htmlName   + '成功！');
             });
         gulp.src(srcCssPath)
             .pipe(common.plugins.rename(cssName))
             .pipe(gulp.dest(cssPath))
             .on('end',function(){
-                common.plugins.util.log('创建文件' + cssPath + cssName   + '成功！');
+                common.plugins.util.log('创建文件' + cssPath + '/' + cssName   + '成功！');
             });
     });
 };
