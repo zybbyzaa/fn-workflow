@@ -3,7 +3,7 @@ var runSequence = require('run-sequence');
 
 module.exports = function (gulp, common) {
     //注册 build_dev 任务
-    gulp.task('build_dev', function(cb){
+    gulp.task('build_dev',['clean'], function(cb){
         if(common.config.platform === 'mobile'){
             runSequence(
                 'compile_mcss',
