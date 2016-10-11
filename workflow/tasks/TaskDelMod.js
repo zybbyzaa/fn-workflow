@@ -1,4 +1,5 @@
 var lib = require('../util/lib');
+var del = require('del');
 var argv = require('yargs').argv;
 module.exports = function (gulp, common) {
     var name = argv.name,
