@@ -35,6 +35,6 @@ module.exports = function (gulp, common) {
                 .pipe(gulp.dest(path.join(common.config.paths.dist.html,'m')));
         }
         lib.task_log('compile_html');
-        cb(err);
+        cb();
     });
 };
