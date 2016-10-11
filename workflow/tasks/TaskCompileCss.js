@@ -41,7 +41,6 @@ module.exports = function (gulp, common) {
                 common.plugins.util.log('pc端样式预处理编译完成');
             })
             .pipe(common.plugins.filter(function(file){
-                console.log(file.path);
                 if(/.css$/.test(file.path))
                     return true;
                 return false;
