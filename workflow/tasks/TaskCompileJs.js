@@ -7,6 +7,12 @@ module.exports = function (gulp, common) {
         common.plugins.util.log('开始编译js');
         return gulp.src(common.config.paths.src.js)
             .pipe(gulp.dest(common.config.paths.dist.js))
+            .pipe(common.plugins.filter(function(file){
+                if(/\\js\\(m\\)?[0-9a-zA-Z-_.]+\.js$/.test(file.path)){
+                    return true;
+                }
+                return false;
+            }))
             .pipe(common.plugins.if(argv.env == 'prod',common.plugins.uglify()))
             .pipe(common.plugins.if(argv.env == 'prod',common.plugins.rename({ suffix: '.min' })))
             .pipe(gulp.dest(common.config.paths.dist.js))

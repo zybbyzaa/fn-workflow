@@ -7,7 +7,7 @@ module.exports = {
 			"dir": './src',
 			"img": './src/images/**/**/*.{JPG,jpg,png,gif,svg}',
 			"slice": './src/slice/**/**/*.png',
-			"js": ['./src/js/**/*.js','!./src/lib/*'],
+			"js": './src/js/**/**',
 			"css": './src/css',
 			"cssAll": './src/css/**/*.{scss,less}',
 			"html": './src/html',
