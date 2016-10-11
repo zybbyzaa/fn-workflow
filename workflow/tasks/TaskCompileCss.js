@@ -52,6 +52,7 @@ module.exports = function (gulp, common) {
             .pipe(common.plugins.postcss(postcssOption))
             .pipe(gulp.dest(common.config.paths.dist.css))
             .pipe(common.plugins.if(argv.env == 'prod',common.plugins.cleanCss()))
+            .pipe(gulp.dest(common.config.paths.dist.discss))
             .pipe(common.plugins.if(argv.env == 'prod',common.plugins.rename({ suffix: '.min' })))
             .pipe(gulp.dest(common.config.paths.dist.css))
             .on('end',function(){
