@@ -9,7 +9,7 @@ module.exports = function (gulp, common) {
     var pcStream = null;
     var mobileStream = null;
 
-    gulp.task('compile_html', function() {
+    gulp.task('compile_html', function(cb) {
         common.plugins.util.log('开始编译html');
         if(common.config.platform !== 'mobile'){
             pcStream = gulp.src([path.join(common.config.paths.src.html,'**/*.html'),'!' + path.join(common.config.paths.src.html,'include/*.html')])
@@ -35,5 +35,6 @@ module.exports = function (gulp, common) {
                 .pipe(gulp.dest(path.join(common.config.paths.dist.html,'m')));
         }
         lib.task_log('compile_html');
+        cb(err);
     });
 };

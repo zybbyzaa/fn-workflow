@@ -2,7 +2,7 @@ var lib = require('../util/lib');
 var argv = require('yargs').argv;
 
 module.exports = function (gulp, common) {
-    gulp.task('load_plugins', function() {
+    gulp.task('load_plugins', function(cb) {
         if(argv.env == 'dev'){
             common.plugins.util.log('开始加载插件build_dev');
             lib.loadPlugin('build_dev');
@@ -11,5 +11,6 @@ module.exports = function (gulp, common) {
             common.plugins.util.log('开始加载插件build_dist');
             lib.loadPlugin('build_dist');
         }
+        cb(err);
     });
 };
