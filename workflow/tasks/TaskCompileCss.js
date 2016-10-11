@@ -26,11 +26,10 @@ module.exports = function (gulp, common) {
         }
         return gulp.src(path.join(common.config.paths.src.css,'style-*.{scss,less}'))
             .pipe(common.plugins.plumber(lib.handleErrors))
-            .pipe(common.plugins.changed(common.config.paths.tmp.css,{extension:'.css'}))
+            // .pipe(common.plugins.changed(common.config.paths.tmp.css,{extension:'.css'}))
             .pipe(common.plugins.logger({ showChange: true }))
-            .pipe(common.plugins.if(common.config.cssplatform == 'sass',common.plugins.sass()))
+            .pipe(common.plugins.sass())
             .on('error',common.plugins.sass.logError)
-            .pipe(common.plugins.if(common.config.cssplatform == 'less',common.plugins.less()))
             .pipe(common.plugins.lazyimagecss({
                 imagePath: common.config.lazyDir
             }))
@@ -51,7 +50,7 @@ module.exports = function (gulp, common) {
             .pipe(common.plugins.logger({ showChange: true }))
             .pipe(common.plugins.postcss(postcssOption))
             .pipe(gulp.dest(common.config.paths.dist.css))
-            .pipe(common.plugins.if(argv.env == 'prod',common.plugins.cleanCss()))
+            .pipe(common.plugins.cleanCss())
             .pipe(gulp.dest(common.config.paths.dist.discss))
             .pipe(common.plugins.if(argv.env == 'prod',common.plugins.rename({ suffix: '.min' })))
             .pipe(gulp.dest(common.config.paths.dist.css))
