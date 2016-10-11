@@ -5,44 +5,34 @@
 //-----------------------------------------------------
 
 
-.fl,.left {
+.f-fl,.left {
     float: left;
 }
-.fr,.right {
+.f-fr,.right {
     float: right;
 }
 //清除浮动
-.clearfix {//用于空元素
+.f-clearfix.clearfix {//用于空元素
     @include clearfix(false,false);
 }
-.clear {//用于父元素
+.f-clear,.clear {//用于父元素
     @include clearfix(false);
 }
-// 左右两端对齐
-.justify {
-	@extend %justify;
-}
-.ellipsis {
+.f-ellipsis,.ellipsis {
 	@extend %ellipsis;
 }
-.full-width {
-	width: 100%;
-}
-.pos-s {
-	position: static !important;
-}
-.fixed-bottom {
+.f-fixed-bottom,.fixed-bottom {
     @include fixed(bottom);
 }
-.hide {
+.f-hide,.hide {
     display: none;
 }
-.wrapper {
+.wrap,.wrapper {
   background-color: nth($colorBg,2);
   min-width: 1170px;
   margin: 0 auto;
 }
-.app-wrapper {
+.app-wrap,.app-wrapper {
     background-color: nth($colorBg,2);
     width: 100%;
     max-width: 7.5rem;
