@@ -3,6 +3,7 @@ var argv = require('yargs').argv;
 var postcssPxtorem = require('postcss-pxtorem'); // 转换 px 为 rem
 var postcssAutoprefixer = require('autoprefixer');
 var postcssCssgrace = require('cssgrace');
+var postcssCsscomb = require('postcss-csscomb');
 var path = require('path');
 var runSequence = require('run-sequence');
 var merge = require('merge2');
@@ -14,7 +15,8 @@ module.exports = function (gulp, common) {
         postcssAutoprefixer({
             browsers: common.config["autoprefixer"][common.config.platform]
         }),
-        postcssCssgrace
+        postcssCssgrace,
+        postcssCsscomb(['zen'])
     ];
 
     gulp.task('compile_css', function() {

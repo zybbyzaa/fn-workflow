@@ -6,6 +6,7 @@ var postcssCssgrace = require('cssgrace');
 var path = require('path');
 var runSequence = require('run-sequence');
 var merge = require('merge2');
+var postcssCsscomb = require('postcss-csscomb');
 
 module.exports = function (gulp, common) {
     var pcStream = null;
@@ -14,7 +15,8 @@ module.exports = function (gulp, common) {
         postcssAutoprefixer({
             browsers: common.config["autoprefixer"][common.config.platform]
         }),
-        postcssCssgrace
+        postcssCssgrace,
+        postcssCsscomb(['zen'])
     ];
 
     gulp.task('compile_mcss', function() {
