@@ -1,0 +1,266 @@
+.footer {
+    padding-top: 30px;
+    background: #fff;
+    overflow: hidden;
+    border-top: 1px solid #eee;
+    min-width: 1170px;
+    margin-left: auto;
+    margin-right: auto
+}
+
+.footer>.container {
+    width: 1170px;
+    margin: 35px auto
+}
+
+.bottom-content {
+    border-bottom: 1px dashed #e5e5e5;
+    height: 165px
+}
+
+.bottom-content li {
+    float: left
+}
+
+.bottom-content li.ewm {
+    background: #fff;
+    width: 112px;
+    margin-right: 60px;
+    text-align: center;
+    position: relative;
+    top: -3px
+}
+
+.bottom-content .wechart-div {
+    width: 112px;
+    height: 112px;
+    background: url(../images/icon.png) no-repeat -410px -130px
+}
+
+.bottom-content li.ewm img {
+    width: 100%
+}
+
+.bottom-content li.ewm p {
+    color: #ff7e0c;
+    background: #fff;
+    line-height: 24px;
+    margin: 0px
+}
+
+.bottom-content li.menu {
+    width: 314px;
+    height: 145px;
+    color: #c5c5c5;
+    text-align: left
+}
+
+.bottom-content li.menu .customer-service {
+    color: #333333;
+    font-size: 18px;
+    margin-bottom: 5px
+}
+
+.bottom-content li.menu .tel {
+    color: #ff7e1d;
+    font-size: 30px;
+    display: inline-block;
+    margin-left: 11px
+}
+
+.bottom-content li.menu p {
+    font-size: 13px;
+    margin: 5px 0;
+    color: #666666;
+    margin-left: 70px
+}
+
+.bottom-content li.menu p.kfemail {
+    margin-top: 10px
+}
+
+.bottom-content li.menu dl dd {
+    float: left;
+    margin: 0px 0px 0px 0;
+    position: relative
+}
+
+.bottom-content li.menu dl dd i.qq {
+    display: block;
+    height: 43px;
+    width: 43px;
+    background: url(../images/icon.png) no-repeat -389px -397px
+}
+
+.bottom-content li.menu dl dd:hover i.qq {
+    background: url(../images/icon.png) no-repeat -389px -397px
+}
+
+.bottom-content li.menu dl dd .newpop {
+    visibility: hidden;
+    position: absolute;
+    min-width: 50px;
+    border: 1px solid #3eb595;
+    background: #fff;
+    color: #898989;
+    padding: 5px;
+    text-align: center;
+    top: 38px;
+    left: -40%
+}
+
+.bottom-content li.menu dl dd i.wechart {
+    display: block;
+    height: 31px;
+    width: 31px;
+    background: url(../images/icon.png) no-repeat -40px -398px
+}
+
+.bottom-content li.menu dl dd:hover i.wechart {
+    background: url(../images/icon.png) no-repeat -300px -398px
+}
+
+.bottom-content li.menu dl dd .newpop-wc {
+    left: -120%
+}
+
+.bottom-content li.menu dl dd .newpop-wc:before {
+    left: 44%
+}
+
+.bottom-content li.menu dl dd .newpop img {
+    width: 95px
+}
+
+.bottom-content li.links {
+    padding: 0 10px
+}
+
+.bottom-content li.links dl {
+    float: left;
+    margin-left: 24px;
+    width: 100px;
+    text-align: left;
+    color: #363636;
+    margin-right: 28px
+}
+
+.bottom-content li.links dl dt {
+    font-size: 15px;
+    padding-bottom: 5px
+}
+
+.footer-part-aboutus-word {
+    display: inline-block;
+    height: 22px;
+    line-height: 22px;
+    position: relative;
+    top: -4px;
+    margin-left: 4px;
+    color: #333333;
+    font-size: 14px
+}
+
+.bottom-content li.links dl dd {
+    font-size: 12px;
+    padding-bottom: 5px;
+    margin: 0;
+    margin-left: 25px
+}
+
+.bottom-content li.links dl dd a {
+    color: #999999
+}
+
+.bottom-content li.links dl dd a:hover {
+    color: #fc9a42
+}
+
+.footer .bottom-link {
+    overflow: hidden;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    padding: 10px 0;
+    padding-top: 20px
+}
+
+#bottom-link {
+    width: 410px;
+    margin: 0 auto
+}
+
+.btm-footer-link-img {
+    width: 337px;
+    margin: 0 auto
+}
+
+.bottom-link li {
+    float: left;
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 14px;
+    color: #333333
+}
+
+.bottom-link li a {
+    text-align: center;
+    display: block;
+    color: #999999
+}
+
+.bottom-link li a:hover {
+    color: #fc9a42
+}
+
+.footer .btm-copyright {
+    text-align: center;
+    font-size: 14px;
+    line-height: 30px;
+    color: #666666
+}
+
+.footer a.icon-symantec {
+    display: block;
+    width: 115px;
+    height: 32px;
+    float: left;
+    background: url(../images/icon.png) no-repeat -450px -859px
+}
+
+.footer a.icon-gongshang {
+    display: block;
+    width: 31px;
+    height: 33px;
+    float: left;
+    background: url(../images/icon.png) no-repeat -726px -859px
+}
+
+.footer a.icon-godaddy {
+    display: block;
+    width: 142px;
+    height: 32px;
+    float: left;
+    background: url(../images/icon.png) no-repeat -574px -859px
+}
+
+.btm-copyright a {
+    color: #6a6a6a;
+    margin-right: 15px
+}
+
+.btm-copyright img {
+    vertical-align: middle;
+    height: 32px;
+    -moz-border-radius: 4px;
+    border-radius: 4px
+}
+
+.bottom-content li.menu dl dd .newpop:before {
+    position: absolute;
+    content: "";
+    top: -17px;
+    left: 35%;
+    display: block;
+    width: 20px;
+    height: 20px
+}

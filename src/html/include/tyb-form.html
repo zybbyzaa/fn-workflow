@@ -1,0 +1,41 @@
+<div class="form-box">
+    <form action="" id="registerFormStep1">
+        <div class="form-row">
+            <input type="text" name="phone" id="reg-phone" placeholder="请输入手机号码领取" class="form-input">
+        </div>
+        <div class="form-row">
+            <input type="button" value="立即领取" class="form-btn js-goto-step2">
+        </div>
+        <p class="has-account">已有账号，请<a href="javascript:;" class="form-link js-goto-login">登录</a></p>
+    </form>
+    <form action="" id="registerFormStep2" class="hide">
+        <div class="form-row">
+            <input type="text" id="id-verifyCode" placeholder="请输入短信验证码" class="form-input">
+            <a href="javascript:;" class="form-link change-phone js-goto-register">更换号码</a>
+        </div>
+        <div class="form-row">
+            <input type="password" id="id-password" placeholder="设置登录密码，含字母与数字" class="form-input form-input--bd0">
+        </div>
+        <input type="hidden">
+        <span class="form-checkbox checked">
+            <input type="checkbox" class="ipt-hide" id="checkBox2" checked="">
+            <label class="checkbox" for="checkBox2">我已阅读并同意《用户服务协议》</label>
+        </span>
+        <div class="form-row">
+            <input type="button" value="立即领取" class="form-btn form-btn--reg js-show-dragState">
+        </div>
+    </form>
+    <form action="" id="loginForm" class="hide">
+        <div class="form-row">
+            <input type="text" placeholder="请输入手机号码" class="form-input" name="username" id="login-user">
+        </div>
+        <div class="form-row">
+            <input type="password" id="login-password" placeholder="请输入登录密码" class="form-input form-input--bd0">
+        </div>
+        <input type="hidden">
+        <div class="form-row">
+            <input type="button" value="登录后领取" class="form-btn form-btn--login js-show-dragState">
+        </div>
+        <p class="has-account">未有账号，请<a href="javascript:;" class="form-link js-goto-register">注册</a></p>
+    </form>
+</div>

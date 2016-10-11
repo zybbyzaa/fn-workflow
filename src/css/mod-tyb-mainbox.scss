@@ -1,0 +1,181 @@
+.activity-content{
+    position: relative;
+    width: 1170px;
+    margin: 0 auto;
+    padding: 0 18px;
+    color: #fff;
+    .exp-box{
+        width: 530px;
+            .box-tt {
+                width: 297px;
+                height: 64px;
+                font-size: 24px;
+                margin: 0 auto 19px;
+                padding-left: 48px;
+                &.tt01{
+                    background-image: url(../images/tiyanbao/box-tt_bg01.png);
+                }
+                &.tt02{
+                    background-image: url(../images/tiyanbao/box-tt_bg02.png);
+                    padding-left: 52px;
+                }
+            }
+    }
+    .mid-shadow{
+        position: absolute;
+        top: 363px;
+        left: 50%;
+        margin-left: -30px;
+        width: 60px;
+        height: 74px;
+        box-shadow: rgba(8, 1, 3, 0.4) 0 -8px 21px, rgba(8, 1, 3, 0.4) 0 8px 21px;
+    }
+    .mid-arrow{
+        position: absolute;
+        top: 363px;
+        left: 50%;
+        margin-left: -44px;
+        width: 88px;
+        height: 74px;
+        background: #fff url(../images/tiyanbao/progress.gif) no-repeat center;
+    }
+}
+.box-container{
+    position: relative;
+    background-color: #fff;
+    height: 606px;
+    width: 100%;
+    box-shadow: rgba(8, 1, 3, 0.4) 8px 8px 21px, rgba(8, 1, 3, 0.4) -8px 0 21px;
+    border-radius: 7px;
+    text-align: center;
+}
+.box-content {
+    position: relative;
+    height: 606px;
+    background-color: #fff;
+    border-radius: 7px;
+    color: #f7654c;
+    .text-red{
+        color: #f7654c !important;
+    }
+    .content-hd{
+        font-size: 28px;
+        line-height: 1;
+        padding: 48px 0 18px;
+        color: #666;
+        .pvip{
+            display: inline-block;
+            background-image: url(../slice/tiyanbao/pvip.png);
+            margin-left: 10px;
+            vertical-align: top;
+            margin-top: 8px;
+        }
+    }
+    .info-ra {
+        display: inline-block;
+        font-size: 14px;
+        line-height: 2;
+        border: 1px #f7654c solid;
+        border-radius: 14px;
+        padding: 0 18px;
+    }
+    .withdout-qualification {
+        margin-top: 35px;
+        padding-top: 214px;
+        background: url(../images/tiyanbao/not-newuser_bg.png) no-repeat top center;
+        color: #333;
+    }
+    .init-box{
+        .year-rate {
+            font-family: 'Arial';
+            font-size: 90px;
+            line-height: 1;
+            margin-top: 50px;
+        }
+        .percent{
+            font-size: 18px;
+        }
+        .rate-text {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 16px;
+        }
+        .info-list {
+            height: 57px;
+            margin-top: 65px;
+            li {
+                width: 176px;
+                height: 57px;
+                float: left;
+                &.list-mid {
+                    border-left: 1px solid #f7654c;
+                    border-right: 1px solid #f7654c;
+                }
+                .num {
+                    font-size: 30px;
+                    height: 30px;
+                    line-height: 30px;
+                }
+                .unit {
+                    font-size: 18px;
+                }
+                .des {
+                    font-size: 14px;
+                    color: #666;
+                    margin-top: 6px;
+                }
+                .icon {
+                    color: #fff;
+                    font-size: 12px;
+                    line-height: 20px;
+                    padding: 0 8px;
+                    background-color: #f7654c;
+                    margin-left: 5px;
+                    border-radius: 10px;
+                }
+            }
+        }
+    }
+    .exp-gold-result{
+        margin: 56px auto 0;
+        padding-top: 34px;
+        height: 138px;
+        width: 283px;
+        background: url(../images/tiyanbao/exp-gold_bg2.png) no-repeat center;
+        font-size: 16px;
+        color: #fff;
+        line-height: 1;
+        .amount {
+            font-size: 36px;
+        }
+        p{
+            margin-bottom: 12px;
+        }
+    }
+    .exp-gold-des{
+        font-size: 16px;
+        margin-bottom: 36px;
+        margin-top: 18px;
+        color: #666;
+    }
+    .withdraw-btn {
+        display: inline-block;
+        width: 296px;
+        height: 48px;
+        line-height: 48px;
+        color: #fff;
+        background-color: #ef565a;
+        font-size: 18px;
+        border: 0;
+        text-align: center;
+        margin-top: 30px;
+    }
+}
+.box-form{
+    .content-hd{
+        padding-top: 20px;
+    }
+    .exp-gold-result{
+        margin-top: 12px;
+    }
+}

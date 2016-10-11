@@ -1,0 +1,70 @@
+.form-box {
+    position: relative;
+    z-index: 10;
+    width: 456px;
+    margin: 36px auto 0;
+    padding-top: 20px;
+    background: url(../images/tiyanbao/form-box_bg.png) no-repeat top center;
+    color: #666;
+    .form-input {
+        width: 296px;
+        height: 50px;
+        border: 1px solid #bfbfbf;
+        padding-left: 13px;
+        &.form-input--bd0 {
+            border-top: 0;
+        }
+    }
+    .form-btn {
+        width: 296px;
+        height: 48px;
+        color: #fff;
+        background-color: #ef565a;
+        font-size: 18px;
+        border: 0;
+        text-align: center;
+        cursor: pointer;
+        margin-top: 26px;
+        margin-bottom: 16px;
+        &.form-btn--reg {
+            margin-top: 15px;
+            margin-bottom: 0;
+        }
+    }
+    .form-link {
+        color: #f7654c;
+        &.change-phone {
+            position: absolute;
+            top: 35px;
+            right: 97px;
+        }
+    }
+    .form-checkbox {
+        display: block;
+        position: relative;
+        margin: 8px auto 0;
+        width: 296px;
+        text-align: left;
+        &:before {
+            position: absolute;
+            top: 4px;
+            content: '';
+            width: 11px;
+            height: 11px;
+            border: 1px solid #ed4542;
+            border-radius: 3px;
+        }
+        &.checked:before{
+            background-image: url(../slice/tiyanbao/checkbox.png);
+        }
+        .ipt-hide {
+            visibility: hidden;
+            position: absolute;
+            top: 4px;
+        }
+        .checkbox {
+            color: #333;
+            padding-left: 20px;
+        }
+    }
+}

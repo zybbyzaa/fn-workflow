@@ -1,0 +1,82 @@
+/* 引入库文件 */
+@import "./lib/lib-variables";
+@import "./lib/lib-mixin";
+@import "./lib/lib-media";
+@import "./lib/lib-reset";
+@import "./lib/lib-help";
+
+/* 模块样式 */
+@import "./mod-tyb-footer";
+@import "./mod-tyb-newuser-quiz";
+@import "./mod-tyb-mainbox";
+@import "./mod-tyb-slot";
+@import "./mod-tyb-form";
+
+.wrapper {
+  background-color: #fff;
+  min-width: 1170px;
+  margin: 0 auto;
+}
+.exp-gold-wrapper {
+  position: relative;
+  width: 100%;
+  height: 1142px;
+  background: url(../images/tiyanbao/exp_bg.jpg) no-repeat center top;
+  .activity-header{
+      width: 1170px;
+      margin: 0 auto;
+      height: 218px;
+      padding: 22px 18px 0;
+      color: #fff;
+      .wrapper-logo{
+          display: block;
+          width: 290px;
+          height: 58px;
+          background: url(../images/tiyanbao/logo.png) no-repeat;
+          margin-bottom: 28px;
+      }
+      .wrapper-title{
+          font-size: 48px;
+          line-height: 1;
+          float: left;
+      }
+      .wrapper-des{
+          font-size: 14px;
+          line-height: 20px;
+          padding-top: 6px;
+          padding-left: 13px;
+          float: left;
+      }
+  }
+  .activity-rule{
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 356px;
+      background: url(../images/tiyanbao/rule_bg01.png) no-repeat center bottom;
+      padding-top: 145px;
+      z-index: 0;
+      .rules {
+        width: 1170px;
+        margin: 0 auto;
+        padding-left: 22px;
+        color: #fff;
+        line-height: 1;
+        .rules-tt {
+          font-size: 18px;
+          margin-bottom: 30px;
+        }
+        .rules-item {
+          position: relative;
+          font-size: 14px;
+          margin-bottom: 16px;
+          padding-left: 22px;
+          span {
+            position: absolute;
+            top: 0;
+            left: 1px;
+          }
+        }
+      }
+  }
+}
