@@ -17,6 +17,7 @@ module.exports = function (gulp, common) {
         .pipe(gulp.dest(common.config.paths.dist.img))
         .on('end',function(){
             lib.task_log('minify_img');
+            lib.reloadhandle();
         });
   });
 };

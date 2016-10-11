@@ -54,11 +54,11 @@ module.exports = function (gulp, common) {
             .pipe(common.plugins.postcss(postcssOption))
             .pipe(gulp.dest(path.join(common.config.paths.dist.css,'m')))
             .pipe(common.plugins.cleanCss())
-            .pipe(gulp.dest(path.join(common.config.paths.dist.discss,'m')))
             .pipe(common.plugins.if(argv.env == 'prod',common.plugins.rename({ suffix: '.min' })))
-            .pipe(gulp.dest(path.join(common.config.paths.dist.css,'m')))
+            .pipe(gulp.dest(path.join(common.config.paths.dist.discss,'m')))
             .on('end',function(){
                 common.plugins.util.log('mobile端样式编译完成');
+                lib.reloadhandle();
             });
         lib.task_log('compile_mcss')
     });

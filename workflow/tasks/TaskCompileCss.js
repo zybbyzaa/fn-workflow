@@ -51,11 +51,11 @@ module.exports = function (gulp, common) {
             .pipe(common.plugins.postcss(postcssOption))
             .pipe(gulp.dest(common.config.paths.dist.css))
             .pipe(common.plugins.cleanCss())
-            .pipe(gulp.dest(common.config.paths.dist.discss))
             .pipe(common.plugins.if(argv.env == 'prod',common.plugins.rename({ suffix: '.min' })))
-            .pipe(gulp.dest(common.config.paths.dist.css))
+            .pipe(gulp.dest(common.config.paths.dist.discss))
             .on('end',function(){
                 common.plugins.util.log('pc端样式编译完成');
+                lib.reloadhandle();
             });
         lib.task_log('compile_css')
     });

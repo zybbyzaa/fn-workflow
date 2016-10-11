@@ -12,6 +12,7 @@ module.exports = function (gulp, common) {
             .pipe(gulp.dest(common.config.paths.dist.js))
             .on('end',function(){
                 lib.task_log('compile_js');
+                lib.reloadhandle();
             });
     });
 };

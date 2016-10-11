@@ -14,6 +14,7 @@ module.exports = function (gulp, common) {
         .pipe(gulp.dest(common.config.paths.dist.sprite))
         .on('end',function(){
             lib.task_log('minify_sprite');
+            lib.reloadhandle();
         });
   });
 };

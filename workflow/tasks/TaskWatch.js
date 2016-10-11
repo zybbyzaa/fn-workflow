@@ -19,7 +19,6 @@ module.exports = function (gulp, common) {
                 common.plugins.util.log(common.plugins.util.colors.green('File ' + file + ' was ' + type));
                 runSequence(['compile_css','compile_mcss'],'minify_sprite');
             }
-            lib.reloadhandle();
         });
         gulp.watch(common.config.paths.src.htmlAll,function(event){
             var type = event.type;
@@ -39,7 +38,6 @@ module.exports = function (gulp, common) {
                     lib.loadPlugin('build_dev');
                 }, 500);
             }
-            lib.reloadhandle();
         });
         gulp.watch(common.config.paths.src.js,function(event){
             var type = event.type;
@@ -52,7 +50,6 @@ module.exports = function (gulp, common) {
                 common.plugins.util.log(common.plugins.util.colors.green('File ' + file + ' was ' + type));
                 runSequence('compile_js');
             }
-            lib.reloadhandle();
         });
         gulp.watch(common.config.paths.src.img,function(event){
             var type = event.type;
@@ -65,7 +62,6 @@ module.exports = function (gulp, common) {
                 common.plugins.util.log(common.plugins.util.colors.green('File ' + file + ' was ' + type));
                 runSequence('minify_img');
             }
-            lib.reloadhandle();
         });
     });
 };

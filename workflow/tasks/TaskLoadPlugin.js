@@ -11,6 +11,7 @@ module.exports = function (gulp, common) {
             common.plugins.util.log('开始加载插件build_dist');
             lib.loadPlugin('build_dist');
         }
+        lib.reloadhandle();
         cb();
     });
 };
