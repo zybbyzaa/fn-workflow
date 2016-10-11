@@ -42,9 +42,12 @@
     "yargs": "^5.0.0"
   },
   "scripts": {
+    "clean": "gulp clean",
     "dev": "gulp build_dev --env=dev",
     "prod": "gulp build_dist --env=prod",
-    "update": "git add -A && git pull origin master"
+    "update": "git add -A && git pull origin master",
+    "watch": "npm run clean && npm run dev",
+    "build": "npm run clean && npm run prod"
   },
   "description": "A f2e project workflow based on Gulp and tmt-workflow",
   "repository": {

@@ -3,7 +3,7 @@ var runSequence = require('run-sequence');
 
 module.exports = function (gulp, common) {
     //注册 build_dist 任务
-    gulp.task('build_dist',['clean'], function(cb){
+    gulp.task('build_dist', function(cb){
         runSequence(
             'compile_css',
             ['compile_js','compile_html'],
