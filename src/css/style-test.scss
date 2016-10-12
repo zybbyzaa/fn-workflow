@@ -9,3 +9,14 @@
 @import "./mod-fn-header.scss";
 @import "./mod-fn-fixedbar.scss";
 @import "./mod-fn-footer.scss";
+
+@include b(block) {
+   background: red;
+   @include e(header){
+       font-size: 14px;
+
+       @include m(css) {
+           font-size: 18px;
+       }
+   };
+}
