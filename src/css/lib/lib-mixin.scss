@@ -701,7 +701,7 @@ $colorC: #ccc;
  }
 }
 
-@mixin m($element) {
+@mixin m($modifier) {
   @at-root {
       #{&}#{$modifierSeparator+$modifier} {
           @content;
