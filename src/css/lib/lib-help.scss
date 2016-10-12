@@ -5,26 +5,26 @@
 //-----------------------------------------------------
 
 
-.f-fl,.left {
+.fl,.left {
     float: left;
 }
-.f-fr,.right {
+.fr,.right {
     float: right;
 }
 //清除浮动
-.f-clearfix.clearfix {//用于空元素
+.clearfix {//用于空元素
     @include clearfix(false,false);
 }
-.f-clear,.clear {//用于父元素
+.clear {//用于父元素
     @include clearfix(false);
 }
-.f-ellipsis,.ellipsis {
+.ellipsis {
 	@extend %ellipsis;
 }
-.f-fixed-bottom,.fixed-bottom {
+.fixed-bottom {
     @include fixed(bottom);
 }
-.z-hide,.hide {
+.hide {
     display: none;
 }
 .wrap,.wrapper {
