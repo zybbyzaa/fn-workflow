@@ -675,6 +675,40 @@ $colorC: #ccc;
     }
 }
 
+@mixin b($block) {
+    .#{$block} {
+        @content;
+    }
+}
+
+@mixin e($element) {
+ $selector: &;
+ @if containsModifier($selector) {
+     $block: getBlock($selector);
+     @at-root {
+         #{$selector} {
+             #{$block+$elementSeparator+$element} {
+                 @content;
+             }
+         }
+     }
+ } @else {
+     @at-root {
+         #{$selector+$elementSeparator+$element} {
+             @content;
+         }
+     }
+ }
+}
+
+@mixin m($element) {
+  @at-root {
+      #{&}#{$modifierSeparator+$modifier} {
+          @content;
+      }
+  }
+}
+
 
 //function
 //-----------------------------------------------------
@@ -687,4 +721,27 @@ $colorC: #ccc;
 // 为颜色添加黑色，以百分比形式
 @function shade($color, $percent) {
     @return mix(black, $color, $percent);
+}
+
+// 将$selector转换成String
+@function selectorToString($selector) {
+    $selector: inspect($selector); //cast to string
+    $selector: str-slice($selector, 2, -2); //remove brackets
+    @return $selector;
+ }
+
+// 判断$selector中是否包含BEM中Modify
+@function containsModifier($selector) {
+    $selector: selectorToString($selector);
+    @if str-index($selector, $modifierSeparator) {
+        @return true;
+    } @else {
+        @return false;
+    }
+ }
+
+@function getBlock($selector) {
+    $selector: selectorToString($selector);
+    $modifierStart: str-index($selector, $modifierSeparator) - 1;
+    @return str-slice($selector, 0, $modifierStart);
 }
