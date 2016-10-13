@@ -1,0 +1,62 @@
+.user-protocol-dialog {
+	width: 560px;
+	height: 544px;
+	display: none;
+}
+
+.user-protocol-dialog .title-bar {
+    background-color: #eee;
+    padding: 5px;
+    padding-left: 10px;
+    color: #666;
+    height: 40px;
+    line-height: 30px;
+    font-size: 16px;
+}
+
+.user-protocol-dialog .close-button-container {
+	float: right;
+}
+
+.user-protocol-dialog .close-button-container a{
+	display:block;
+	width: 16px;
+	height: 16px;
+	background: url(../images/icon.png) no-repeat -613px -136px;
+	margin-top: 7px;
+}
+
+.user-protocol-dialog .protocol-body {
+    position: relative;
+    max-height: 430px;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.protocol-body p {
+	margin: 0 0 10px;
+	font-size: 14px;
+}
+
+.user-protocol-dialog  .button-container {
+	margin-top: 20px;
+	margin-left: auto;
+	margin-right: auto;
+	width: 110px;
+}
+
+.user-protocol-dialog .btn {
+    cursor: pointer;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+    display: block;
+    border-radius: 3px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    border: 0px;
+    font-size: 16px;
+    height: 36px;
+    line-height: 36px;
+    background: #e66814;
+}

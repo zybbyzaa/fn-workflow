@@ -27,7 +27,7 @@ module.exports = {
 			"discss": './dist/discss',
 			"img": './dist/images',
 			"html": './dist/html',
-			"sprite": './dist/sprite',
+			"sprite": './dist/images/sprite',
 			"js": './dist/js'
 		},
 		"tpl": {

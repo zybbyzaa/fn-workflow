@@ -35,7 +35,7 @@ module.exports = function (gulp, common) {
             .pipe(common.plugins.lazyimagecss({
                 imagePath: common.config.lazyDir
             }))
-            .pipe(common.plugins.tmtsprite({margin: 4}))
+            .pipe(common.plugins.tmtsprite({margin: 4,spriteOut: './images'}))
             .pipe(common.plugins.if('*.png',
                 gulp.dest(common.config.paths.tmp.sprite),
                 gulp.dest(common.config.paths.tmp.css)))

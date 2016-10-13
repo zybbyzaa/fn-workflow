@@ -1,0 +1,50 @@
+/* 引入库文件 */
+@import "./lib/lib-variables";
+@import "./lib/lib-mixin";
+@import "./lib/lib-media";
+@import "./lib/lib-reset";
+@import "./lib/lib-help";
+
+/* 模块样式 */
+@import "./mod-fn-header_v2";
+@import './mod-fn-footer_v2';
+@import './mod-fn-form';
+
+.banner{
+    height: 600px;
+    background: url(../images/account/login-banner.jpg) no-repeat center;
+    cursor: pointer;
+    position: absolute;
+    width: 100%;
+}
+.wrapper{
+    height: 600px;
+    background-color: transparent;
+    .container{
+        width: 1170px;
+        margin: 0 auto;
+        height: 100%;
+        padding-top: 125px;
+    }
+}
+.form-container{
+    position: relative;
+    width: 335px;
+    height: 375px;
+    background-color: #fff;
+    padding: 30px;
+    font-size: 16px;
+    color: #666;
+    line-height: 1;
+}
+.icon-tel{
+    background-image: url('../slice/account/icon-tel.png');
+}
+.icon-pwd{
+    background-image: url('../slice/account/icon-pwd.png');
+}
+.icon-xl{
+    display: inline-block;
+    margin: 5px;
+    background-image: url('../slice/account/xl-logo.png');
+}

@@ -1,0 +1,41 @@
+.fn-header_v2 {
+    position: relative;
+    height: 97px;
+    width: 1170px;
+    margin: 0 auto;
+    padding-left: 238px;
+    background: url(../images/account/fn-logo.png) no-repeat center left;
+    .link-download {
+        margin-top: 28px;
+        margin-right: 60px;
+        width: 110px;
+        line-height: 38px;
+        border: 1px solid #999;
+        border-radius: 3px;
+        color: #999;
+        font-size: 14px;
+        text-align: center;
+        &.link-download--active {
+            color: #fff;
+            border-color: #fe993f;
+            background-color: #fe993f;
+        }
+    }
+    .app-qrcode {
+        display: none;
+        position: absolute;
+        top: 72px;
+        right: 0;
+        background: url(../images/account/bg-qrcode.png) no-repeat center;
+        width: 250px;
+        height: 262px;
+        border-radius: 6px;
+        padding: 48px 32px 0;
+        z-index: 10;
+    }
+    .header-text {
+        line-height: 97px;
+        font-size: 24px;
+        color: #666;
+    }
+}

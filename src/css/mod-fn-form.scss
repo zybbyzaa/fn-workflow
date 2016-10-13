@@ -1,0 +1,106 @@
+.form-text{
+    color: #999;
+    text-align: right;
+    margin-bottom: 8px;
+}
+.login-link,.register-link,.user-protocol-link{
+    color: #ff7e0c;
+}
+.forget-link,.xl-link{
+    color: #666;
+}
+.form-row {
+    position: relative;
+    width: 100%;
+    padding-top: 10px;
+}
+.form-input{
+    width: 100%;
+    height: 50px;
+    border: 1px solid #c8c9ca;
+    border-radius: 3px;
+    padding-left: 65px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #666;
+    vertical-align: top;
+    &::-webkit-input-placeholder{
+        font-size: 16px;
+        color: #999;
+    }
+    &.form-input--error{
+        border-color: #ff4040;
+    }
+    &.form-input--sm {
+        width: 230px;
+    }
+}
+.form-icon{
+    position: absolute;
+    top: 11px;
+    left: 1px;
+    background-color: #f1f3f6;
+}
+.error-msg{
+    font-size: 14px;
+    color: #ff4040;
+}
+.form-btn{
+    width: 100%;
+    height: 46px;
+    font-size: 18px;
+    color: #fff;
+    background-color: #ff9940;
+    border-radius: 2px;
+    text-align: center;
+    line-height: 46px;
+    border: 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.form-label{
+    position: relative;
+    padding-left: 22px;
+    line-height: 1;
+    &:before{
+        content: '';
+        position: absolute;
+        top: 4px;
+        left: 0;
+        width: 14px;
+        height: 14px;
+        border: 1px solid #c8c9ca;
+        border-radius: 1px;
+    }
+    &.checked:before {
+        background-image: url('../slice/account/icon-checked.png');
+    }
+}
+.form-checkbox{
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 16px;
+    height: 16px;
+    visibility: hidden;
+}
+.fb-text {
+    position: absolute;
+    bottom: 12px;
+    text-align: center;
+    width: 364px;
+}
+.verify-code,.sms-code{
+    width: 109px;
+    height: 50px;
+    border: 1px solid #c8c9ca;
+    border-radius: 2px;
+    line-height: 48px;
+    text-align: center;
+    color: #ff7e0c;
+    img{
+        width: 107px;
+        height: 48px;
+        vertical-align: top;
+    }
+}
