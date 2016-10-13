@@ -24,10 +24,10 @@ module.exports = {
 		"dist": {
 			"dir": './dist',
 			"css": './dist/css',
-			"discss": './dist/discss',
+			"discss": './dist/distcss',
 			"img": './dist/images',
 			"html": './dist/html',
-			"sprite": './dist/sprite',
+			"sprite": './dist/images/sprite',
 			"js": './dist/js'
 		},
 		"tpl": {
