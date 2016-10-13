@@ -24,7 +24,7 @@ module.exports = {
 		"dist": {
 			"dir": './dist',
 			"css": './dist/css',
-			"discss": './dist/discss',
+			"discss": './dist/distcss',
 			"img": './dist/images',
 			"html": './dist/html',
 			"sprite": './dist/images/sprite',
