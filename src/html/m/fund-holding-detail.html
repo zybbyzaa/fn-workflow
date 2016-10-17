@@ -129,14 +129,16 @@
                 <p>正在刷新 ...</p>
             </div>
         </div>
-        <div class="footer">
-            <p>基金历史业绩不预示其未来表现，市场有风险，投资需谨慎</p><p>基金销售服务由珠海盈米财富管理有限公司提供</p><p>基金销售资格证号：000000378</p>
-        </div>
+        <% include ./include/fund-footer.html %>
         <div class="btn-group fixed-bottom">
             <a href="#" class="btn">分红</a>
             <a href="#" class="btn btn-mid">赎回</a>
             <a href="#" class="btn btn-oringe">追加</a>
         </div>
+        <script>
+            //是否执行上滑刷新的标志
+            var isCanRefresh = true;
+        </script>
         <script src="/js/lib/jquery-1.10.2.min.js"></script>
         <script src="/js/lib/highcharts/highcharts.js"></script>
         <script src="/js/lib/transform.js"></script>

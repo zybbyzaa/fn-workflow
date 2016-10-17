@@ -5,57 +5,12 @@
 @import "../lib/lib-reset";
 @import "../lib/lib-help";
 
+@import "./mod-fund-table";
+@import "./mod-fund-footer";
+
 body{
     background-color: #eee;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-}
-.worth-row{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    height: 90px;
-    min-height: 90px;
-    font-size: 24px;
-    color: #414141;
-    border-bottom: 1px solid #d5d5d5;
-    &:last-child{
-        border-bottom: 0;
-    }
-    .worth-col{
-        flex: 1;
-        text-align: center;
-        &.red{
-            color: #ff0000;
-        }
-        &.green{
-            color: #00ae4a;
-        }
-    }
-}
-.table-hd,.table-bd{
-    border-bottom: 1px solid #d5d5d5;
-    background-color: #fff;
-}
-.table-bd{
-    padding-left: 30px;
-    padding-right: 30px;
-}
-.table-hd{
-    .worth-row{
-        padding-left: 30px;
-        padding-right: 30px;
-    }
-}
-.footer {
-    width: 100%;
-    text-align: center;
-    padding-top: 24px;
-    padding-bottom: 24px;
-    p {
-        font-size: 20px;
-        line-height: 1.5;
-        color: #b3b3b3;
-    }
 }
