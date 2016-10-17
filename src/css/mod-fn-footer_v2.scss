@@ -23,5 +23,8 @@
     }
     a{
         color: #999;
+        &:hover {
+            text-decoration: underline;
+        }
     }
 }

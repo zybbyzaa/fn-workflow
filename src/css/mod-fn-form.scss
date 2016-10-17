@@ -5,9 +5,15 @@
 }
 .login-link,.register-link,.user-protocol-link{
     color: #ff7e0c;
+    &:hover{
+        text-decoration: underline;
+    }
 }
 .forget-link,.xl-link{
     color: #666;
+    &:hover{
+        text-decoration: underline;
+    }
 }
 .form-row {
     position: relative;
@@ -50,13 +56,16 @@
     height: 46px;
     font-size: 18px;
     color: #fff;
-    background-color: #ff9940;
+    background-color: #ff771d;
     border-radius: 2px;
     text-align: center;
     line-height: 46px;
     border: 0;
     margin-top: 10px;
     margin-bottom: 10px;
+    &:hover,&:active{
+        background-color: #e66814;
+    }
 }
 .form-label{
     position: relative;

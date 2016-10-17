@@ -66,5 +66,5 @@ module.exports = {
 	"lazyDir": [
 		"../slice"
 	],
-	"supportREM": false
+	"supportREM": true
 }

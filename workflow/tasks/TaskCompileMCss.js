@@ -12,11 +12,11 @@ module.exports = function (gulp, common) {
     var pcStream = null;
     var mobileStream = null;
     var postcssOption = [
+        postcssCsscomb(['zen']),
         postcssAutoprefixer({
             browsers: common.config["autoprefixer"][common.config.platform]
         }),
-        postcssCssgrace,
-        postcssCsscomb(['zen'])
+        postcssCssgrace
     ];
 
     gulp.task('compile_mcss', function() {

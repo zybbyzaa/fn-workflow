@@ -12,11 +12,11 @@ module.exports = function (gulp, common) {
     var pcStream = null;
     var mobileStream = null;
     var postcssOption = [
+        postcssCsscomb(['zen']),
         postcssAutoprefixer({
             browsers: common.config["autoprefixer"][common.config.platform]
         }),
-        postcssCssgrace,
-        postcssCsscomb(['zen'])
+        postcssCssgrace
     ];
 
     gulp.task('compile_css', function() {
@@ -35,7 +35,7 @@ module.exports = function (gulp, common) {
             .pipe(common.plugins.lazyimagecss({
                 imagePath: common.config.lazyDir
             }))
-            .pipe(common.plugins.tmtsprite({margin: 4,spriteOut: './images'}))
+            .pipe(common.plugins.tmtsprite({margin: 4}))
             .pipe(common.plugins.if('*.png',
                 gulp.dest(common.config.paths.tmp.sprite),
                 gulp.dest(common.config.paths.tmp.css)))
