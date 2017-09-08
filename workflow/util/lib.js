@@ -4,6 +4,8 @@ var fs = require('fs');
 var path = require('path');
 var common = require('./common.js');
 var util = common.plugins.util;
+var updateRule = require('postcss-sprites/lib/core').updateRule;
+var makeSpritesheetPath = require('postcss-sprites/lib/core').makeSpritesheetPath;
 
 var lib = {
     log: function (task_name) {
@@ -68,26 +70,49 @@ var lib = {
             }
         }
     },
-    checkDateFormat: function(_date) {
+    checkDateFormat: function (_date) {
         if (_date < 10) {
             _date = '0' + _date;
         }
         return _date;
     },
-    handleErrors: function(errorObject,cb){
+    handleErrors: function (errorObject, cb) {
         common.plugins.notify.onError(errorObject.toString().split(': ').join(':\n'))
             .apply(this, arguments);
-        if(typeof this.emit === 'function'){
+        if (typeof this.emit === 'function') {
             this.emit('end');
         }
     },
-    getCurrentTime: function(){
-    var _time = new Date(),
-        _timeResult = lib.checkDateFormat(_time.getHours()) + ':' + lib.checkDateFormat(_time.getMinutes()) + ':' + lib.checkDateFormat(_time.getSeconds());
-    return _timeResult;
+    getCurrentTime: function () {
+        var _time = new Date(),
+            _timeResult = lib.checkDateFormat(_time.getHours()) + ':' + lib.checkDateFormat(_time.getMinutes()) + ':' + lib.checkDateFormat(_time.getSeconds());
+        return _timeResult;
     },
-    reloadhandle: function(){
+    reloadhandle: function () {
         common.config.livereload && common.reload();
+    },
+    spritesGroupBy: function (image) {
+        let groups = /\/images\/sprites\/(.*?)\/.*/gi.exec(image.url);
+        let groupName = groups ? groups[1] : group;
+        image.retina = true;
+        image.ratio = 1;
+        if (groupName) {
+            let ratio = /@(\d+)x$/gi.exec(groupName);
+            if (ratio) {
+                ratio = ratio[1];
+                while (ratio > 10) {
+                    ratio /= 10;
+                }
+                image.ratio = ratio;
+            }
+        }
+        return Promise.resolve(groupName);
+    },
+    spritesOnUpdateRule: function (rule, comment, image) {
+        updateRule(rule, comment, image);
+    },
+    spritesOnSaveSpritesheet: function (opts, groups) {
+        return makeSpritesheetPath(opts, groups);
     }
 };
 

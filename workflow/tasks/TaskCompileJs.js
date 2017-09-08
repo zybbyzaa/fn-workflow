@@ -3,20 +3,23 @@ var lib = require('../util/lib');
 var argv = require('yargs').argv;
 
 module.exports = function (gulp, common) {
-    gulp.task('compile_js', function() {
+    gulp.task('compile_js', function () {
         common.plugins.util.log('开始编译js');
-        return gulp.src(common.config.paths.src.js)
-            .pipe(gulp.dest(common.config.paths.dist.js))
-            .pipe(common.plugins.filter(function(file){
-                if(/\\js\\(m\\)?[0-9a-zA-Z-_.]+\.js$/.test(file.path)){
-                    return true;
+        var srcPath = `${common.config.paths.src.root}/js/**/**/**/*.{js,css}`
+        var distPath = `${common.config.paths.dist.root}${common.config.paths.dist.js}`
+        return gulp.src(srcPath)
+            .pipe(gulp.dest(distPath))
+            .pipe(common.plugins.filter(function (file) {
+                //过滤lib文件夹
+                if (/\\js\\lib\\([0-9a-zA-Z-_.]+\\)*[0-9a-zA-Z-_.]+\.(css|js)$/.test(file.path)) {
+                    console.log(file.path);
+                    return false;
                 }
-                return false;
+                return true;
             }))
-            .pipe(common.plugins.if(argv.env == 'prod',common.plugins.uglify()))
-            .pipe(common.plugins.if(argv.env == 'prod',common.plugins.rename({ suffix: '.min' })))
-            .pipe(gulp.dest(common.config.paths.dist.js))
-            .on('end',function(){
+            .pipe(common.plugins.if(argv.env == 'prod', common.plugins.uglify()))
+            .pipe(gulp.dest(distPath))
+            .on('end', function () {
                 lib.task_log('compile_js');
                 lib.reloadhandle();
             });

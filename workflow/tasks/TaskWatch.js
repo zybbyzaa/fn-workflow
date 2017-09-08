@@ -4,12 +4,11 @@ var path = require('path');
 var del = require('del');
 var lib = require('../util/lib');
 
-
 module.exports = function (gulp, common) {
-    gulp.task('watch', function() {
-        gulp.watch(common.config.paths.src.cssAll,function(event){
+    gulp.task('watch', function () {
+        gulp.watch(`${common.config.paths.watch.root}${common.config.paths.watch.css}`, function (event) {
             var type = event.type;
-            var file = event.path.replace(/\\/g,'\/');
+            var file = event.path.replace(/\\/g, '\/');
             var ext = path.extname(file);
             if (type === 'removed') {
                 var tmp = file.replace('src', 'dist').replace(ext, '.css');
@@ -17,12 +16,12 @@ module.exports = function (gulp, common) {
                 common.plugins.util.log(common.plugins.util.colors.red('File ' + tmp + ' was ' + type));
             } else {
                 common.plugins.util.log(common.plugins.util.colors.green('File ' + file + ' was ' + type));
-                runSequence(['compile_css','compile_mcss'],'minify_sprite');
+                runSequence('compile_css', 'compile_mcss', 'minify_img');
             }
         });
-        gulp.watch(common.config.paths.src.htmlAll,function(event){
+        gulp.watch(`${common.config.paths.watch.root}${common.config.paths.watch.html}`, function (event) {
             var type = event.type;
-            var file = event.path.replace(/\\/g,'\/');
+            var file = event.path.replace(/\\/g, '\/');
             if (type === 'removed') {
                 var tmp = file.replace('src', 'dist');
                 del([tmp]).then(function () {
@@ -31,7 +30,7 @@ module.exports = function (gulp, common) {
                 common.plugins.util.log(common.plugins.util.colors.red('File ' + tmp + ' was ' + type));
             } else {
                 common.plugins.util.log(common.plugins.util.colors.green('File ' + file + ' was ' + type));
-                runSequence('compile_html');
+                runSequence('compile_html', 'minify_img');
             }
             if (type === 'add') {
                 setTimeout(function () {
@@ -39,9 +38,9 @@ module.exports = function (gulp, common) {
                 }, 500);
             }
         });
-        gulp.watch(common.config.paths.src.js,function(event){
+        gulp.watch(`${common.config.paths.watch.root}${common.config.paths.watch.js}`, function (event) {
             var type = event.type;
-            var file = event.path.replace(/\\/g,'\/');
+            var file = event.path.replace(/\\/g, '\/');
             if (type === 'removed') {
                 var tmp = file.replace('src', 'dist');
                 del([tmp]);
@@ -51,9 +50,9 @@ module.exports = function (gulp, common) {
                 runSequence('compile_js');
             }
         });
-        gulp.watch(common.config.paths.src.img,function(event){
+        gulp.watch(`${common.config.paths.watch.root}${common.config.paths.watch.img}`, function (event) {
             var type = event.type;
-            var file = event.path.replace(/\\/g,'\/');
+            var file = event.path.replace(/\\/g, '\/');
             if (type === 'removed') {
                 var tmp = file.replace(/src/, 'dist');
                 del([tmp]);

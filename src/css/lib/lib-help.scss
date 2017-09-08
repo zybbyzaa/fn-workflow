@@ -1,41 +1,45 @@
-@charset "UTF-8";
+@charset 'UTF-8';
 
 //-----------------------------------------------------
 // helper scss
 //-----------------------------------------------------
 
 
-.fl,.left {
+.fl,
+.left
+{
     float: left;
 }
-.fr,.right {
+.fr,
+.right
+{
     float: right;
 }
 //清除浮动
-.clearfix {//用于空元素
+.clearfix
+{
+    //用于空元素
     @include clearfix(false,false);
 }
-.clear {//用于父元素
+.clear
+{
+    //用于父元素
     @include clearfix(false);
 }
-.ellipsis {
-	@extend %ellipsis;
+.ellipsis
+{
+    @extend %ellipsis;
 }
-.fixed-bottom {
+.fixed-bottom
+{
     @include fixed(bottom);
 }
-.hide {
+.hide
+{
     display: none;
 }
-.wrap,.wrapper {
-  background-color: nth($colorBg,2);
-  min-width: 1170px;
-  margin: 0 auto;
-}
-.app-wrap,.app-wrapper {
-    background-color: nth($colorBg,2);
-    width: 100%;
-    max-width: 7.5rem;
-    min-height: 100%;
-    margin: 0;
+.wrap,
+.wrapper
+{
+    min-width: 1200px;  margin: 0 auto;  background-color: nth($colorBg,2);
 }

@@ -1,8 +1,8 @@
 // 声明插件以及配置文件的依赖
-var plugins     = require('gulp-load-plugins')(),
+var plugins = require('gulp-load-plugins')(),
     packageInfo = require('../../package.json'),
     browserSync = require('browser-sync').create(),
-    reload      = browserSync.reload,
+    reload = browserSync.reload,
     config;
 
 // 读取项目配置表
