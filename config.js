@@ -64,6 +64,10 @@ module.exports = {
     port: 3030,
     startPath: 'WEB-INF/TmTIndex.htm'
   },
+  proxy: {
+    path: [],
+    target: ''
+  },
   //路径相对于 workflow/lib 目录
   plugins: {
     build_devAfter: ['TmTIndex'],

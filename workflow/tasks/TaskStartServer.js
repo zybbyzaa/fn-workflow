@@ -12,8 +12,8 @@ module.exports = function(gulp, common) {
       },
       port: common.config['livereload']['port'] || 8080,
       middleware: [
-        proxy(['/path'], {
-          target: '',
+        proxy(common.config['proxy']['path'], {
+          target: common.config['proxy']['target'],
           changeOrigin: true, // for vhosted sites, changes host header to match to target's host
           logLevel: 'debug',
           pathRewrite: {}
