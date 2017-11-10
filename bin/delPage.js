@@ -3,7 +3,7 @@ var fs = require('fs');
 var path = require('path');
 var shell = require('shelljs');
 
-async function watchProject() {
+async function delPage() {
   const platform = await inquirer
     .prompt([
       {
@@ -73,4 +73,4 @@ async function watchProject() {
   );
 }
 
-watchProject();
+delPage();

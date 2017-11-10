@@ -18,13 +18,13 @@ async function watchProject() {
     });
   const projectDir = [];
   if (platform !== 'pc') {
-    const mobilePath = path.resolve('src/pages/m');
-    const files = await fs.readdirSync(mobilePath);
+    const dirPath = path.resolve('src/pages/m');
+    const files = await fs.readdirSync(dirPath);
     projectDir.push(...files);
   }
   if (platform !== 'mobile') {
-    const mobilePath = path.resolve('src/pages');
-    const files = await fs.readdirSync(mobilePath);
+    const dirPath = path.resolve('src/pages');
+    const files = await fs.readdirSync(dirPath);
     projectDir.push(...files);
   }
   const dirName = await inquirer

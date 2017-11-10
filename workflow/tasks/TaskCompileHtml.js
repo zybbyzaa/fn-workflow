@@ -80,20 +80,16 @@ module.exports = function(gulp, common) {
             .pipe(gulp.dest(distMobilePath))
         : null;
     if (platform === 'mobile') {
-      return htmlMobileStream.on('end', function() {
-        lib.task_log('compile_html_m');
-        lib.reloadhandle();
-      });
+      return htmlMobileStream.on('end', onStreamEnd);
     } else if (platform === 'pc') {
-      return htmlStream.on('end', function() {
-        lib.task_log('compile_html');
-        lib.reloadhandle();
-      });
+      return htmlStream.on('end', onStreamEnd);
     } else {
-      return merge2(htmlStream, htmlMobileStream).on('end', function() {
-        lib.task_log('compile_html_all');
-        lib.reloadhandle();
-      });
+      return merge2(htmlStream, htmlMobileStream).on('end', onStreamEnd);
     }
   });
 };
+
+function onStreamEnd() {
+  lib.task_log('compile_html');
+  lib.reloadhandle();
+}
