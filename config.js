@@ -1,31 +1,28 @@
 var argv = require('yargs').argv;
-var projectName = argv.projectName !== 'all' ? argv.projectName : '**';
-var projectDir = projectName === '**' ? '' : `/${argv.projectName}`;
+var projectName = argv.projectName !== 'all' ? argv.projectName : '*';
+var projectDir = projectName === '*' ? '' : `/${argv.projectName}`;
 var isMobile = argv.m;
 
 module.exports = {
   projectName: '',
-  cssplatform: 'sass',
   contentPath: '',
   paths: {
     src: {
       root: './src',
-      css: `/css/${projectName}`,
-      cssMobile: `/css/m/${projectName}`,
-      cssMod: `/css/mod`,
-      cssModMobile: `/css/m/mod`,
+      css: `/css/${projectName}/style-*.scss`,
       cssLib: '/css/lib/**/*.css',
+      cssMobile: `/css/m/${projectName}/style-*.scss`,
       img: '/images/**/**/*.{jpg,png,gif,svg}',
-      imgSprites: '/images/sprites/**/*.{jpg,png,gif,svg}',
-      html: `/pages/${projectName}`,
-      htmlMobile: `/pages/m/${projectName}`,
-      htmlCommon: '/pages/common',
-      htmlMobileCommon: '/pages/m/common',
-      js: `/js/${projectName}`,
-      jsMobile: `/js/m/${projectName}`,
-      jsLib: '/js/lib/**/**/*.{js,css}',
-      json: `/pages/${projectName}`,
-      jsonMobile: `/pages/m/${projectName}`
+      imgSprites: '/images/sprites/*/*.{jpg,png,gif,svg}',
+      html: `/pages/${projectName}/*.shtml`,
+      htmlCommon: '/pages/common/*.shtml',
+      htmlMobile: `/pages/m/${projectName}/*.shtml`,
+      htmlMobileCommon: '/pages/m/common/*.shtml',
+      js: `/js/${projectName}/*.js`,
+      jsMobile: `/js/m/${projectName}/*.js`,
+      jsLib: '/js/lib/**/*',
+      json: `/pages/${projectName}/*.json`,
+      jsonMobile: `/pages/m/${projectName}/*.json`
     },
     dist: {
       root: './dist',
@@ -34,11 +31,14 @@ module.exports = {
       cssLib: '/css/lib',
       img: '/images',
       html: `/WEB-INF${projectDir}`,
+      htmlCommon: '/WEB-INF/common',
       htmlMobile: `/WEB-INF/m${projectDir}`,
-      htmlCommon: '/WEB-INF',
+      htmlMobileCommon: '/WEB-INF/m/common',
       js: '/js',
-      json: `/WEB-INF${projectDir}`,
-      jsonMobile: `/WEB-INF/m${projectDir}`
+      jsLib: '/js/lib',
+      revSrc: `/rev/*/*.json`,
+      revSrcMobile: `/rev/*/m/*.json`,
+      revDist: '/rev'
     },
     watch: {
       root: './src',
@@ -58,12 +58,13 @@ module.exports = {
       modcss: './workflow/template/modCssTemplate.scss'
     }
   },
+  //browerSync配置
   livereload: {
     available: true,
-    //开启自动刷新
     port: 3030,
     startPath: 'WEB-INF/TmTIndex.htm'
   },
+  //后端接口代理配置
   proxy: {
     path: [],
     target: ''
@@ -73,19 +74,59 @@ module.exports = {
     build_devAfter: ['TmTIndex'],
     build_distAfter: []
   },
-  autoprefixer: {
-    mobile: ['Android >= 4', 'iOS >= 6'],
-    pc: [
-      'last 3 versions',
-      'Explorer >= 8',
-      'Chrome >= 21',
-      'Firefox >= 1',
-      'Edge 13'
-    ]
-  },
-  postcssPxtorem: {
-    root_value: '100', // 基准值 html{ font-zise: 20px; }
-    prop_white_list: [], // 对所有 px 值生效
-    minPixelValue: 2 // 忽略 1px 值
+  //pistcss配置
+  postcss: {
+    autoprefixer: {
+      mobile: ['Android >= 4', 'iOS >= 6'],
+      pc: [
+        'last 3 versions',
+        'Explorer >= 8',
+        'Chrome >= 21',
+        'Firefox >= 1',
+        'Edge 13'
+      ]
+    },
+    pxtorem: {
+      root_value: '100', // 基准值 html{ font-zise: 20px; }
+      prop_white_list: [], // 对所有 px 值生效
+      minPixelValue: 2 // 忽略 1px 值
+    },
+    sprites: function() {
+      var fs = require('fs');
+      var path = require('path');
+      var hash = require('rev-hash');
+      var lib = require('./workflow/util/lib');
+      return {
+        retina: false,
+        verbose: true,
+        spritePath: './dist/images', // 雪碧图合并后存放地址
+        stylesheetPath: '../dist/css',
+        basePath: './',
+        spritesmith: {
+          padding: 2
+        },
+        filterBy(image) {
+          if (image.url.indexOf('/images/sprites/') === -1) {
+            return Promise.reject();
+          }
+          return Promise.resolve();
+        },
+        groupBy(image) {
+          return lib.spritesGroupBy(image);
+        },
+        hooks: {
+          onUpdateRule(rule, comment, image) {
+            var spriteUrl = image.spritePath.replace('dist', '../..');
+            image.spriteUrl =
+              `${spriteUrl}?v=` +
+              hash(fs.readFileSync(path.resolve(image.spritePath)));
+            return lib.spritesOnUpdateRule(rule, comment, image);
+          },
+          onSaveSpritesheet(opts, groups) {
+            return lib.spritesOnSaveSpritesheet(opts, groups);
+          }
+        }
+      };
+    }
   }
 };

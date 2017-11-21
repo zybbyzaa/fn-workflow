@@ -3,7 +3,7 @@ node_modules
 npm-debug.log
 .idea
 .zip
+.ftl
 tmp
 dev
 dist
-src

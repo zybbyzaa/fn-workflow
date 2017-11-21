@@ -1,0 +1,101 @@
+src
+|---css
+    |---lib
+        |---lib-*.scss :==> ignore
+        |---**
+            |---*.css :==> copy
+    |---*
+        |---style-*.scss :==> compile
+    |---mod
+        |---mod-*.scss :==> ignore
+    |---m
+        |---*
+            |---style-*.scss :==> compile
+        |---mod
+            |---mod-*.scss :==> ignore
+|---js
+    |---lib
+        |---**
+            |---*.js :==> copy
+        |---layer,layer-mobile
+            |---*
+                |---*.* :==> copy
+    |---*
+        |---*.js :==> compile
+    |---mod
+        |---*.js :==> compile
+    |---m
+        |---*
+            |---*.js :==> compile
+        |---mod
+            |---*.js :==> compile
+|---images
+    |---**
+        |--**
+            |--*.{jpg,png,gif,svg} :==> copy
+    |---sprites
+        |---*
+            |--*.png :==> ignore
+|---pages
+    |---*
+        |---*.json :==> compile
+        |---*.shtml :==> compile
+    |---common
+        |---*.shtml :==> copy
+    |---m
+        |---*
+            |---*.json :==> compile
+            |---*.shtml :==> compile
+        |---common
+            |---*.shtml :==> copy
+dist
+|---css
+    |---lib
+        |---**
+            |---*.css
+    |---*
+        |---style-*.css
+    |---m
+        |---*
+            |---style-*.css
+|---images
+    |---**
+        |--**
+            |--*.{jpg,png,gif,svg}
+    |---sprite.*.png
+|---js
+    |---lib
+        |---**
+            |---*.js
+        |---layer
+            |---*
+                |---**
+                    |---*.*
+    |---*
+        |---*.js
+    |---mod
+        |---*.js
+    |---m
+        |---*
+            |---*.js
+        |---mod
+            |---*.js
+|---rev
+    |---css
+        |---**
+            |--*.json
+    |---js
+        |---**
+            |--*.json
+|---WEB-INF
+    |---*
+        |---*.htm
+        |---*.shtml
+    |---common
+        |---*.shtml
+    |---m
+        |---*
+            |---*.htm
+            |---*.shtml
+        |---common
+            |---*.shtml

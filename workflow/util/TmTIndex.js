@@ -15,6 +15,8 @@ module.exports = function(config) {
       '<link rel="stylesheet" href="http://wximg.gtimg.com/tmt/tools/file-list/css/style.css">',
       '<style type="text/css">',
       '.icon-qrcode{cursor: pointer;}@media only screen and (min-device-width : 310px) and (max-device-width : 800px){#myTable{margin: 0;max-width: 100%;}.td-header-qrcode,.td-header-time,.td-qrcode,.td-time{display:none;}.table-body,.td-header-title{font-size: 14px }}',
+      '.icon-copy{background-image:url(https://clipboardjs.com/assets/images/clippy.svg);width: 16px;height: 16px;background-size: 16px;margin: 0 auto;display: block;top: 1px;position: relative;vertical-align: bottom;}',
+      '.copy-value{opacity: 0}',
       '</style>',
       '</head>',
       '<body>',
@@ -22,6 +24,7 @@ module.exports = function(config) {
       '       <thead class="table-head">',
       '           <tr>',
       '           <th class="td-header-title">文件名</th>',
+      '           <th class="td-header-qrcode" style="width:60px;text-align: center;">复制链接</th>',
       '           <th class="td-header-qrcode" style="width:40px;text-align: center;">二维码</th>',
       '           </tr>',
       '       </thead>',
@@ -80,12 +83,7 @@ module.exports = function(config) {
 
     if (collector['type'] == 'dir') {
       if (level != 0) {
-        html +=
-          '<tr><td class="td-dir" style="text-align:left; padding-left: ' +
-          indent +
-          'px">[目录]: ' +
-          basename +
-          '</td><td></td></tr>';
+        html += `<tr><td class="td-dir" style="text-align:left; padding-left: ${indent}px">[目录]: ${basename}</td><td></td></tr>`;
       }
 
       collector['child'].forEach(function(item) {
@@ -96,23 +94,47 @@ module.exports = function(config) {
     if (collector['type'] == 'file') {
       if (path.extname(file) === '.htm' && basename !== 'TmTIndex.htm') {
         if (level === 1) {
-          tmpHtml +=
-            '<tr class="level1"><td class="td-file sort-file" style="padding-left: ' +
-            indent +
-            'px"><a href="/WEB-INF' +
-            collector['url'] +
-            '" target="_blank">' +
-            basename +
-            '</a></td><td class="td-qrcode"><i class="icon-qrcode"></i></td></tr>';
+          tmpHtml += `<tr class="level1">
+              <td class="td-file sort-file" style="padding-left: ${indent}px">
+                <a href="/WEB-INF${collector['url']}" target="_blank">
+                  ${basename}
+                  <input class="copy-value" type="text" id="${collector[
+                    'url'
+                  ].replace(/[\/,\.]/g, '')}" value="${ip}:${config.livereload
+            .port}/WEB-INF${collector['url']}"/>
+                </a>
+              </td>
+              <td class="td-copy">
+                <a class="copy-url" href="javascript:;" data-clipboard-target="#${collector[
+                  'url'
+                ].replace(/[\/,\.]/g, '')}" title="${ip}:${config.livereload
+            .port}/WEB-INF${collector['url']}">
+                  <i class="icon-copy"></i>
+                </a>
+              </td>
+              <td class="td-qrcode"><i class="icon-qrcode"></i></td>
+            </tr>`;
         } else {
-          html +=
-            '<tr><td class="td-file" style="padding-left: ' +
-            indent +
-            'px"><a href="/WEB-INF' +
-            collector['url'] +
-            '" target="_blank">' +
-            basename +
-            '</a></td><td class="td-qrcode"><i class="icon-qrcode"></i></td></tr>';
+          html += `<tr>
+            <td class="td-file sort-file" style="padding-left: ${indent}px">
+              <a href="/WEB-INF${collector['url']}" target="_blank">
+                ${basename}
+                <input class="copy-value" type="text" id="${collector[
+                  'url'
+                ].replace(/[\/,\.]/g, '')}" value="${ip}:${config.livereload
+            .port}/WEB-INF${collector['url']}"/>
+              </a>
+            </td>
+            <td class="td-copy">
+              <a class="copy-url" href="javascript:;" data-clipboard-target="#${collector[
+                'url'
+              ].replace(/[\/,\.]/g, '')}" title="${ip}:${config.livereload
+            .port}/WEB-INF${collector['url']}">
+                <i class="icon-copy"></i>
+              </a>
+            </td>
+            <td class="td-qrcode"><i class="icon-qrcode"></i></td>
+          </tr>`;
         }
       }
     }
@@ -120,13 +142,7 @@ module.exports = function(config) {
 
   html = html + tmpHtml;
 
-  html +=
-    '</tbody></table><div id="qrcode"></div><script src="http://wximg.gtimg.com/tmt/tools/file-list/js/jquery-2.1.3.min.js"></script><script src="http://wximg.gtimg.com/tmt/tools/file-list/js/qrcode.min.js"></script><script type="text/javascript">$(document).ready(function(){ var url = location.href.replace("localhost", "' +
-    ip +
-    '");document.title= "' +
-    config.projectName +
-    ' 资源列表";  $(".level1").prependTo(".table-body"); $(".td-qrcode i").bind("mouseenter ",function(){$("#qrcode").show().empty();new QRCode(document.getElementById("qrcode"), encodeURI(url.split("TmTIndex.html")[0]+$(this).parent().parent().find("a").attr("href")));});$("body").bind("click",function(){$("#qrcode").hide();});});</script></body></html>';
-
+  html += `</tbody></table><div id="qrcode"></div><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js"></script><script src="http://wximg.gtimg.com/tmt/tools/file-list/js/jquery-2.1.3.min.js"></script><script src="http://wximg.gtimg.com/tmt/tools/file-list/js/qrcode.min.js"></script><script type="text/javascript">$(document).ready(function(){ ;var url = location.href.replace("localhost", "${ip}");document.title= "${config.projectName} 资源列表";  $(".level1").prependTo(".table-body"); var clipboard = new Clipboard(".copy-url");clipboard.on("success", function(e) {console.log(e);});$(".td-qrcode i").bind("mouseenter ",function(){$("#qrcode").show().empty();\nnew QRCode(document.getElementById("qrcode"), encodeURI(url.split("/WEB-INF/TmTIndex.htm")[0]+$(this).parent().parent().find("a").attr("href")));});\n$("body").bind("click",function(){$("#qrcode").hide();});});</script></body></html>`;
   var out = fs.createWriteStream('./dist/WEB-INF/TmTIndex.htm', {
     encoding: 'utf8'
   });
