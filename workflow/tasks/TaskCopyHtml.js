@@ -1,32 +1,30 @@
 // 编译html文件
-var lib = require('../util/lib');
-var argv = require('yargs').argv;
-var ejshelper = require('tmt-ejs-helper');
-var posthtmlPx2rem = require('posthtml-px2rem');
 var path = require('path');
-var through = require('through2');
 var merge2 = require('merge2');
-var platform = require('yargs').argv.platform || 'all';
+var through = require('through2');
+var argv = require('yargs').argv,
+  platform = argv.platform || 'all';
+var lib = require('../util/lib');
 
 module.exports = function(gulp, common) {
   gulp.task('copy_html', function(cb) {
     common.plugins.util.log('开始编译html');
     var srcPath = `${common.config.paths.src.root}${common.config.paths.src
-      .html}/*.shtml`;
+      .html}`;
     var srcMobilePath = `${common.config.paths.src.root}${common.config.paths
-      .src.htmlMobile}/*.shtml`;
+      .src.htmlMobile}`;
     var srcCommonPath = `${common.config.paths.src.root}${common.config.paths
-      .src.htmlCommon}/**/*.shtml`;
+      .src.htmlCommon}`;
     var srcMobileCommonPath = `${common.config.paths.src.root}${common.config
-      .paths.src.htmlMobileCommon}/**/*.shtml`;
+      .paths.src.htmlMobileCommon}`;
     var distPath = `${common.config.paths.dist.root}${common.config.paths.dist
       .html}`;
     var distMobilePath = `${common.config.paths.dist.root}${common.config.paths
       .dist.htmlMobile}`;
     var distCommonPath = `${common.config.paths.dist.root}${common.config.paths
-      .dist.htmlCommon}/common`;
+      .dist.htmlCommon}`;
     var distMobileCommonPath = `${common.config.paths.dist.root}${common.config
-      .paths.dist.htmlCommon}/m/common`;
+      .paths.dist.htmlCommon}`;
     var htmlStream =
       platform !== 'mobile'
         ? gulp
@@ -68,15 +66,6 @@ module.exports = function(gulp, common) {
                 cb();
               })
             )
-            .pipe(
-              common.plugins.if(
-                argv.env == 'prod',
-                common.plugins.rename({
-                  extname: '.shtml'
-                })
-              )
-            )
-            .pipe(common.plugins.usemin())
             .pipe(gulp.dest(distPath))
         : null;
     var htmlCommonStream =
@@ -86,13 +75,7 @@ module.exports = function(gulp, common) {
             .pipe(common.plugins.plumber(lib.handleErrors))
             .pipe(gulp.dest(distCommonPath))
         : null;
-    var htmlMobileCommonStream =
-      platform !== 'pc'
-        ? gulp
-            .src(srcMobileCommonPath)
-            .pipe(common.plugins.plumber(lib.handleErrors))
-            .pipe(gulp.dest(distMobileCommonPath))
-        : null;
+
     var htmlMobileStream =
       platform !== 'pc'
         ? gulp
@@ -134,27 +117,14 @@ module.exports = function(gulp, common) {
                 cb();
               })
             )
-            .pipe(common.plugins.usemin())
-            .pipe(
-              common.plugins.if(
-                common.config.supportREM,
-                common.plugins.posthtml(
-                  posthtmlPx2rem({
-                    rootValue: 100,
-                    minPixelValue: 2
-                  })
-                )
-              )
-            )
-            .pipe(
-              common.plugins.if(
-                argv.env == 'prod',
-                common.plugins.rename({
-                  extname: '.shtml'
-                })
-              )
-            )
             .pipe(gulp.dest(distMobilePath))
+        : null;
+    var htmlMobileCommonStream =
+      platform !== 'pc'
+        ? gulp
+            .src(srcMobileCommonPath)
+            .pipe(common.plugins.plumber(lib.handleErrors))
+            .pipe(gulp.dest(distMobileCommonPath))
         : null;
     if (platform === 'mobile') {
       return merge2(htmlMobileStream, htmlMobileCommonStream).on(

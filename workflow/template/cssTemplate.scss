@@ -5,6 +5,24 @@
 @import '../lib/lib-reset';
 @import '../lib/lib-help';
 
+html,
+body
+{
+    height: 100%;
+    min-height: 100%;
+}
 /* 模块样式 */
-
+@import '../mod/mod-common-head.scss';
+@import '../mod/mod-common-foot.scss';
+@import '../mod/common-tips.scss';
 /* 页面样式 */
+.wrapper
+{
+    position: relative;
+
+    min-width: $viewWidth;
+    min-height: 100%;
+    padding-bottom: $ftHeight;
+
+    background-color: #f7f8fa;
+}

@@ -1,13 +1,13 @@
-var lib = require('../util/lib');
 var runSequence = require('run-sequence');
 var platform = require('yargs').argv.platform || 'all';
+var lib = require('../util/lib');
 
 module.exports = function(gulp, common) {
   //注册 build_dev 任务
   var taskList = [
     'compile_js',
     'compile_html',
-    'minify_img',
+    'copy_img',
     'watch',
     'load_plugins',
     'start_server'

@@ -41,8 +41,8 @@
   "scripts": {
     "clean": "gulp clean",
     "dev": "node ./bin/watch.js",
-    "prod": "npm run clean && npm run build all",
-    "watch": "gulp clean && gulp build_dev --env dev --projectName",
+    "watch":
+      "gulp clean && gulp build_dev --env dev --platform all --projectName",
     "build":
       "gulp clean && gulp build_dist --env prod --platform all --projectName",
     "newPage": "node ./bin/newPage.js",

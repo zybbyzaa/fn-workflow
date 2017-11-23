@@ -1,21 +1,16 @@
 // 编译html文件
-var lib = require('../util/lib');
-var platform = require('yargs').argv.platform || 'all';
-var posthtmlPx2rem = require('posthtml-px2rem');
 var path = require('path');
 var merge2 = require('merge2');
+var platform = require('yargs').argv.platform || 'all';
+var lib = require('../util/lib');
 
 module.exports = function(gulp, common) {
   gulp.task('compile_html', function(cb) {
     common.plugins.util.log('开始编译html');
-    var srcPath = [
-      `${common.config.paths.src.root}${common.config.paths.src
-        .json}/${common.changeFileName || '*'}.json`,
-      `!${common.config.paths.src.root}${common.config.paths.src
-        .jsonMobile}/*.json`
-    ];
+    var srcPath = `${common.config.paths.src.root}${common.config.paths.src
+      .json}`;
     var srcMobilePath = `${common.config.paths.src.root}${common.config.paths
-      .src.jsonMobile}/${common.changeFileName || '*'}.json`;
+      .src.jsonMobile}`;
     var distPath = `${common.config.paths.dist.root}${common.config.paths.dist
       .json}`;
     var distMobilePath = `${common.config.paths.dist.root}${common.config.paths
@@ -30,6 +25,14 @@ module.exports = function(gulp, common) {
               common.plugins.logger({
                 showChange: true
               })
+            )
+            .pipe(
+              common.plugins.if(
+                common.changeFileName,
+                common.plugins.filter(file => {
+                  return file.path.indexOf(common.changeFileName) >= 0;
+                })
+              )
             )
             .pipe(
               common.plugins.freemarker({
@@ -56,21 +59,18 @@ module.exports = function(gulp, common) {
               })
             )
             .pipe(
+              common.plugins.if(
+                common.changeFileName,
+                common.plugins.filter(file => {
+                  return file.path.indexOf(common.changeFileName) >= 0;
+                })
+              )
+            )
+            .pipe(
               common.plugins.freemarker({
                 viewRoot: path.join(process.cwd(), `src/pages/`),
                 options: {}
               })
-            )
-            .pipe(
-              common.plugins.if(
-                common.config.supportREM,
-                common.plugins.posthtml(
-                  posthtmlPx2rem({
-                    rootValue: 100,
-                    minPixelValue: 2
-                  })
-                )
-              )
             )
             .pipe(
               common.plugins.rename({

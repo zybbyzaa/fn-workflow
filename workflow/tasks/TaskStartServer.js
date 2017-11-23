@@ -16,7 +16,7 @@ module.exports = function(gulp, common) {
           target: common.config['proxy']['target'],
           changeOrigin: true, // for vhosted sites, changes host header to match to target's host
           logLevel: 'debug',
-          pathRewrite: {}
+          pathRewrite: common.config['proxy']['pathRewrite']
         })
       ],
       startPath: common.config['livereload']['startPath'] || '/WEB-INF',

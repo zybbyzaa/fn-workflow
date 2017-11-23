@@ -1,5 +1,6 @@
 var argv = require('yargs').argv;
 var projectName = argv.projectName !== 'all' ? argv.projectName : '*';
+var fileName = typeof argv.name === 'string' ? argv.name : '*';
 var projectDir = projectName === '*' ? '' : `/${argv.projectName}`;
 var isMobile = argv.m;
 
@@ -9,20 +10,20 @@ module.exports = {
   paths: {
     src: {
       root: './src',
-      css: `/css/${projectName}/style-*.scss`,
-      cssLib: '/css/lib/**/*.css',
-      cssMobile: `/css/m/${projectName}/style-*.scss`,
+      css: `/css/${projectName}/style-${fileName}.scss`,
+      cssLib: '/css/lib/*/*.css',
+      cssMobile: `/css/m/${projectName}/style-${fileName}.scss`,
       img: '/images/**/**/*.{jpg,png,gif,svg}',
       imgSprites: '/images/sprites/*/*.{jpg,png,gif,svg}',
-      html: `/pages/${projectName}/*.shtml`,
+      html: `/pages/${projectName}/${fileName}.shtml`,
       htmlCommon: '/pages/common/*.shtml',
-      htmlMobile: `/pages/m/${projectName}/*.shtml`,
+      htmlMobile: `/pages/m/${projectName}/${fileName}.shtml`,
       htmlMobileCommon: '/pages/m/common/*.shtml',
-      js: `/js/${projectName}/*.js`,
-      jsMobile: `/js/m/${projectName}/*.js`,
+      js: `/js/${projectName}/${fileName}.js`,
+      jsMobile: `/js/m/${projectName}/${fileName}.js`,
       jsLib: '/js/lib/**/*',
-      json: `/pages/${projectName}/*.json`,
-      jsonMobile: `/pages/m/${projectName}/*.json`
+      json: `/pages/${projectName}/${fileName}.json`,
+      jsonMobile: `/pages/m/${projectName}/${fileName}.json`
     },
     dist: {
       root: './dist',
@@ -34,7 +35,8 @@ module.exports = {
       htmlCommon: '/WEB-INF/common',
       htmlMobile: `/WEB-INF/m${projectDir}`,
       htmlMobileCommon: '/WEB-INF/m/common',
-      js: '/js',
+      js: '/js${projectDir}',
+      jsMobile: '/js/m${projectDir}',
       jsLib: '/js/lib',
       revSrc: `/rev/*/*.json`,
       revSrcMobile: `/rev/*/m/*.json`,
@@ -42,10 +44,10 @@ module.exports = {
     },
     watch: {
       root: './src',
-      css: '/css/**/**/*.{scss,css}',
-      img: '/images/**/**/*.{JPG,jpg,png,gif,svg}',
-      html: '/pages/**/**/*.{html,json,shtml}',
-      js: '/js/**/**/*.js'
+      css: '/css/**/*.{scss,css}',
+      img: '/images/**/*.{jpg,png,gif,svg}',
+      html: '/pages/**/*.{html,json,shtml}',
+      js: '/js/**/*.js'
     },
     tpl: {
       html: './workflow/template/pageTemplate.html',
@@ -55,7 +57,8 @@ module.exports = {
       js: './workflow/template/jsTemplate.js',
       json: './workflow/template/jsonTemplate.json',
       modhtml: './workflow/template/modHtmlTemplate.html',
-      modcss: './workflow/template/modCssTemplate.scss'
+      modcss: './workflow/template/modCssTemplate.scss',
+      modjs: './workflow/template/modJsTemplate.jss'
     }
   },
   //browerSync配置
@@ -67,7 +70,8 @@ module.exports = {
   //后端接口代理配置
   proxy: {
     path: [],
-    target: ''
+    target: '',
+    pathRewrite: {}
   },
   //路径相对于 workflow/lib 目录
   plugins: {

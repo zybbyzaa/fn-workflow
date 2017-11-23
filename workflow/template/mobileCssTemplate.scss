@@ -7,8 +7,16 @@
 @import '../../lib/lib-mobile';
 
 /* 模块样式 */
+@import '../mod/common-header.scss';
+@import '../mod/common-footer.scss';
 /* 页面样式 */
 .app-wrapper
 {
-    //
+    position: relative;
+
+    width: 100%;
+    max-width: 750px;
+    margin: 0 auto;
+
+    background: #f2f2f2;
 }

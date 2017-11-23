@@ -22,7 +22,7 @@ module.exports = function(gulp, common) {
           common.plugins.util.log(
             common.plugins.util.colors.green('File ' + file + ' was ' + type)
           );
-          runSequence('compile_css', 'compile_mcss', 'minify_img');
+          runSequence('compile_css', 'compile_mcss', 'copy_img');
         }
       }
     );
@@ -44,7 +44,7 @@ module.exports = function(gulp, common) {
             common.plugins.util.colors.green('File ' + file + ' was ' + type)
           );
           common.changeFileName = path.parse(event.path).name;
-          runSequence('compile_html', 'minify_img');
+          runSequence('compile_html', 'copy_img');
         }
         if (type === 'add') {
           setTimeout(function() {
@@ -87,7 +87,7 @@ module.exports = function(gulp, common) {
           common.plugins.util.log(
             common.plugins.util.colors.green('File ' + file + ' was ' + type)
           );
-          runSequence('minify_img');
+          runSequence('copy_img');
         }
       }
     );

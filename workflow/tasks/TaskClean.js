@@ -1,5 +1,5 @@
-var lib = require('../util/lib');
 var del = require('del');
+var lib = require('../util/lib');
 
 module.exports = function(gulp, common) {
   gulp.task('clean', ['log_version'], function(cb) {

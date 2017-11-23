@@ -2,7 +2,7 @@ src
 |---css
     |---lib
         |---lib-*.scss :==> ignore
-        |---**
+        |---*
             |---*.css :==> copy
     |---*
         |---style-*.scss :==> compile
