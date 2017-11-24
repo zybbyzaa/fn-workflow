@@ -12,9 +12,9 @@ module.exports = function(gulp, common) {
     var srcMobilePath = `${common.config.paths.src.root}${common.config.paths
       .src.jsonMobile}`;
     var distPath = `${common.config.paths.dist.root}${common.config.paths.dist
-      .json}`;
+      .html}`;
     var distMobilePath = `${common.config.paths.dist.root}${common.config.paths
-      .dist.jsonMobile}`;
+      .dist.htmlMobile}`;
     var htmlStream =
       platform !== 'mobile'
         ? gulp

@@ -31,8 +31,18 @@
     <script src="<%- contextPath %>/js/lib/jquery-1.10.2.min.js"></script>
     <script type="text/javascript">
       var contextPath = "<%- contextPath %>";
+      var reg = new RegExp('(\\s|^)expand(\\s|$)');
+      var menuBtn = document.querySelector('.nav-header .more');
+      var navHeader = document.querySelector('.nav-header');
+      menuBtn.addEventListener('click', function (e) {
+        if (navHeader.className.match(reg)) {
+          obj.className = obj.className.replace(reg, ' ');
+        } else {
+          obj.className += " expand";
+        }
+      }, false);
     </script>
-    <script src="<%- contextPath %>/js/m/<%= projectName %>/<%= name %>.js"></script>
+    <script src="<%- contextPath %>/js/lib/require.js" data-main="<%- contextPath %>/js/m/loan/<%= name %>.js"></script>
 </body>
 
 </html>
