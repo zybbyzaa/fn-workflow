@@ -11,16 +11,20 @@ module.exports = {
     src: {
       root: './src',
       css: `/css/${projectName}/style-${fileName}.scss`,
+      cssMod: `/css/mod/mod-${fileName}.scss`,
       cssLib: '/css/lib/*/*.css',
       cssMobile: `/css/m/${projectName}/style-${fileName}.scss`,
+      cssModMobile: `/css/m/mod/mod-${fileName}.scss`,
       img: '/images/**/**/*.{jpg,png,gif,svg}',
       imgSprites: '/images/sprites/*/*.{jpg,png,gif,svg}',
       html: `/pages/${projectName}/${fileName}.shtml`,
-      htmlCommon: '/pages/common/*.shtml',
+      htmlCommon: `/pages/common/${fileName}.shtml`,
       htmlMobile: `/pages/m/${projectName}/${fileName}.shtml`,
-      htmlMobileCommon: '/pages/m/common/*.shtml',
+      htmlMobileCommon: `/pages/m/common/${fileName}.shtml`,
       js: `/js/${projectName}/${fileName}.js`,
+      jsMod: `/js/mod/${fileName}.js`,
       jsMobile: `/js/m/${projectName}/${fileName}.js`,
+      jsModMobile: `/js/m/mod/${fileName}.js`,
       jsLib: '/js/lib/**/*',
       json: `/pages/${projectName}/${fileName}.json`,
       jsonMobile: `/pages/m/${projectName}/${fileName}.json`
@@ -58,7 +62,7 @@ module.exports = {
       json: './workflow/template/jsonTemplate.json',
       modhtml: './workflow/template/modHtmlTemplate.html',
       modcss: './workflow/template/modCssTemplate.scss',
-      modjs: './workflow/template/modJsTemplate.jss'
+      modjs: './workflow/template/modJsTemplate.js'
     }
   },
   //browerSync配置

@@ -1,6 +1,5 @@
 // 压缩js文件
 var argv = require('yargs').argv;
-var pngquant = require('imagemin-pngquant');
 var lib = require('../util/lib');
 
 module.exports = function(gulp, common) {

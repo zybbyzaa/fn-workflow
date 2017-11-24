@@ -1,5 +1,7 @@
+var path = require('path');
 var argv = require('yargs').argv;
 var through = require('through2');
+var lib = require('../util/lib');
 
 module.exports = function(gulp, common) {
   var name = argv.name,
@@ -13,10 +15,10 @@ module.exports = function(gulp, common) {
       : common.config.paths.tpl.css,
     srcJsPath = common.config.paths.tpl.js,
     srcJsonPath = common.config.paths.tpl.json;
-  var htmlName = `${name}.shtml`,
-    cssName = `style-${name}.scss`,
-    jsName = `${name}.js`,
-    jsonName = `${name}.json`;
+  // var htmlName = `${name}.shtml`,
+  //   cssName = `style-${name}.scss`,
+  //   jsName = `${name}.js`,
+  //   jsonName = `${name}.json`;
   var htmlPath = `${common.config.paths.src.root}${isMobile
       ? common.config.paths.src.htmlMobile
       : common.config.paths.src.html}`,
@@ -40,28 +42,28 @@ module.exports = function(gulp, common) {
           common: '<#import "/common/common.ftl" as s>'
         })
       )
-      .pipe(common.plugins.rename(htmlName))
-      .pipe(gulp.dest(htmlPath))
+      .pipe(common.plugins.rename(lib.getFileBaseName(htmlPath)))
+      .pipe(gulp.dest(lib.getFileDir(htmlPath)))
       .on('end', function() {
-        common.plugins.util.log('创建文件' + htmlPath + '/' + htmlName + '成功！');
+        common.plugins.util.log('创建文件' + htmlPath + '成功！');
       });
     gulp
       .src(srcCssPath)
-      .pipe(common.plugins.rename(cssName))
-      .pipe(gulp.dest(cssPath))
+      .pipe(common.plugins.rename(lib.getFileBaseName(cssPath)))
+      .pipe(gulp.dest(lib.getFileDir(cssPath)))
       .on('end', function() {
-        common.plugins.util.log('创建文件' + cssPath + '/' + cssName + '成功！');
+        common.plugins.util.log('创建文件' + cssPath + '成功！');
       });
     gulp
       .src(srcJsPath)
-      .pipe(common.plugins.rename(jsName))
-      .pipe(gulp.dest(jsPath))
+      .pipe(common.plugins.rename(lib.getFileBaseName(jsPath)))
+      .pipe(gulp.dest(lib.getFileDir(jsPath)))
       .on('end', function() {
-        common.plugins.util.log('创建文件' + jsPath + '/' + jsName + '成功！');
+        common.plugins.util.log('创建文件' + jsPath + '成功！');
       });
     gulp
       .src(srcJsonPath)
-      .pipe(common.plugins.rename(jsonName))
+      .pipe(common.plugins.rename(lib.getFileBaseName(jsonPath)))
       .pipe(
         through.obj(function(file, enc, cb) {
           if (file.isNull()) {
@@ -90,9 +92,9 @@ module.exports = function(gulp, common) {
           cb();
         })
       )
-      .pipe(gulp.dest(jsonPath))
+      .pipe(gulp.dest(lib.getFileDir(jsonPath)))
       .on('end', function() {
-        common.plugins.util.log('创建文件' + jsonPath + '/' + jsonName + '成功！');
+        common.plugins.util.log('创建文件' + jsonPath + '成功！');
       });
   });
 };

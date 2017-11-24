@@ -1,55 +1,25 @@
-var lib = require('../util/lib');
-var del = require('del');
 var argv = require('yargs').argv;
+var lib = require('../util/lib');
 
 module.exports = function(gulp, common) {
   var name = argv.name,
     isMobile = argv.m;
-  var htmlName = `${name}.shtml`,
-    cssName = `style-${name}.scss`,
-    jsName = `${name}.js`,
-    jsonName = `${name}.json`;
-  // 删除json文件
   var htmlPath = `${common.config.paths.src.root}${isMobile
       ? common.config.paths.src.htmlMobile
-      : common.config.paths.src.html}/${htmlName}`,
+      : common.config.paths.src.html}`,
     cssPath = `${common.config.paths.src.root}${isMobile
       ? common.config.paths.src.cssMobile
-      : common.config.paths.src.css}/${cssName}`,
+      : common.config.paths.src.css}`,
     jsPath = `${common.config.paths.src.root}${isMobile
       ? common.config.paths.src.jsMobile
-      : common.config.paths.src.js}/${jsName}`,
+      : common.config.paths.src.js}`,
     jsonPath = `${common.config.paths.src.root}${isMobile
       ? common.config.paths.src.jsonMobile
-      : common.config.paths.src.json}/${jsonName}`;
+      : common.config.paths.src.json}`;
   gulp.task('del_page', function() {
-    if (lib.fileExist(htmlPath)) {
-      del([htmlPath]).then(function() {
-        common.plugins.util.log(
-          common.plugins.util.colors.red('删除' + htmlPath + '成功')
-        );
-      });
-    }
-    if (lib.fileExist(cssPath)) {
-      del([cssPath]).then(function() {
-        common.plugins.util.log(
-          common.plugins.util.colors.red('删除' + cssPath + '成功')
-        );
-      });
-    }
-    if (lib.fileExist(jsPath)) {
-      del([jsPath]).then(function() {
-        common.plugins.util.log(
-          common.plugins.util.colors.red('删除' + jsPath + '成功')
-        );
-      });
-    }
-    if (lib.fileExist(jsonPath)) {
-      del([jsonPath]).then(function() {
-        common.plugins.util.log(
-          common.plugins.util.colors.red('删除' + jsonPath + '成功')
-        );
-      });
-    }
+    lib.delFile(htmlPath);
+    lib.delFile(cssPath);
+    lib.delFile(jsPath);
+    lib.delFile(jsonPath);
   });
 };

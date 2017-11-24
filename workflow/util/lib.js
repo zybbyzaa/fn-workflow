@@ -2,6 +2,7 @@
 
 var fs = require('fs');
 var path = require('path');
+var del = require('del');
 var updateRule = require('postcss-sprites/lib/core').updateRule;
 var makeSpritesheetPath = require('postcss-sprites/lib/core')
   .makeSpritesheetPath;
@@ -74,6 +75,25 @@ var lib = {
         throw new Error(err);
       }
     }
+  },
+  delFile: function(filePath) {
+    if (lib.fileExist(filePath)) {
+      del([filePath]).then(function() {
+        common.plugins.util.log(
+          common.plugins.util.colors.red('删除' + filePath + '成功')
+        );
+      });
+    } else {
+      common.plugins.util.log(
+        common.plugins.util.colors.red('找不到文件：' + filePath)
+      );
+    }
+  },
+  getFileBaseName: function(filePath) {
+    return path.parse(filePath).base;
+  },
+  getFileDir: function(filePath) {
+    return path.parse(filePath).dir;
   },
   checkDateFormat: function(_date) {
     if (_date < 10) {
