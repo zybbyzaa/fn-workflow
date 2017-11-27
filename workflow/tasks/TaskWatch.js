@@ -43,7 +43,11 @@ module.exports = function(gulp, common) {
           common.plugins.util.log(
             common.plugins.util.colors.green('File ' + file + ' was ' + type)
           );
-          common.changeFileName = path.parse(event.path).name;
+          if (lib.getFileDir(event.path).indexOf('common') < 0) {
+            common.changeFileName = path.parse(event.path).name;
+          } else {
+            common.changeFileName = '';
+          }
           runSequence('compile_html', 'copy_img');
         }
         if (type === 'add') {

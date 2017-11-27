@@ -82,7 +82,7 @@ module.exports = {
     build_devAfter: ['TmTIndex'],
     build_distAfter: []
   },
-  //pistcss配置
+  //postcss配置
   postcss: {
     autoprefixer: {
       mobile: ['Android >= 4', 'iOS >= 6'],

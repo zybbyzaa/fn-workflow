@@ -7,10 +7,19 @@ var lib = require('../util/lib');
 module.exports = function(gulp, common) {
   gulp.task('compile_html', function(cb) {
     common.plugins.util.log('开始编译html');
-    var srcPath = `${common.config.paths.src.root}${common.config.paths.src
-      .json}`;
-    var srcMobilePath = `${common.config.paths.src.root}${common.config.paths
-      .src.jsonMobile}`;
+    var changedFileName = common.changeFileName || '';
+    var srcPath = `${common.config.paths.src.root}${changedFileName === ''
+      ? common.config.paths.src.json
+      : common.config.paths.src.json.replace(
+          /\*\.json$/,
+          `${changedFileName}.json`
+        )}`;
+    var srcMobilePath = `${common.config.paths.src.root}${changedFileName === ''
+      ? common.config.paths.src.jsonMobile
+      : common.config.paths.src.jsonMobile.replace(
+          /\*\.json$/,
+          `${changedFileName}.json`
+        )}`;
     var distPath = `${common.config.paths.dist.root}${common.config.paths.dist
       .html}`;
     var distMobilePath = `${common.config.paths.dist.root}${common.config.paths
@@ -25,14 +34,6 @@ module.exports = function(gulp, common) {
               common.plugins.logger({
                 showChange: true
               })
-            )
-            .pipe(
-              common.plugins.if(
-                common.changeFileName,
-                common.plugins.filter(file => {
-                  return file.path.indexOf(common.changeFileName) >= 0;
-                })
-              )
             )
             .pipe(
               common.plugins.freemarker({
@@ -57,14 +58,6 @@ module.exports = function(gulp, common) {
               common.plugins.logger({
                 showChange: true
               })
-            )
-            .pipe(
-              common.plugins.if(
-                common.changeFileName,
-                common.plugins.filter(file => {
-                  return file.path.indexOf(common.changeFileName) >= 0;
-                })
-              )
             )
             .pipe(
               common.plugins.freemarker({

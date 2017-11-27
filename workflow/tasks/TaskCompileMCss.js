@@ -33,7 +33,7 @@ module.exports = function(gulp, common) {
     return gulp
       .src(srcMobilePath)
       .pipe(common.plugins.plumber(lib.handleErrors))
-      .pipe(common.plugins.changed(distMobilePath))
+      .pipe(common.plugins.changed(distMobilePath, { extension: '.css' }))
       .pipe(common.plugins.logger({ showChange: true }))
       .pipe(common.plugins.sass())
       .on('error', common.plugins.sass.logError)

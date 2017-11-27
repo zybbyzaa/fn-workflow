@@ -38,7 +38,7 @@ module.exports = function(gulp, common) {
     var cssStream = gulp
       .src(srcPath)
       .pipe(common.plugins.plumber(lib.handleErrors))
-      .pipe(common.plugins.changed(distPath))
+      .pipe(common.plugins.changed(distPath, { extension: '.css' }))
       .pipe(common.plugins.logger({ showChange: true }))
       .pipe(common.plugins.sass())
       .on('error', common.plugins.sass.logError)
@@ -69,6 +69,7 @@ module.exports = function(gulp, common) {
       });
     var cssLibStream = gulp
       .src(srcLibPath)
+      .pipe(common.plugins.changed(distLibPath))
       .pipe(common.plugins.plumber(lib.handleErrors))
       .pipe(gulp.dest(distLibPath));
     return merge2(cssStream, cssLibStream).on('end', function() {
