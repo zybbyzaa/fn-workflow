@@ -6,7 +6,7 @@ module.exports = function(gulp, common) {
   gulp.task('rev', function(cb) {
     var pcStream = gulp
       .src([
-        `${common.config.paths.dist.root}${common.config.paths.dist.revSrc}`,
+        `${common.config.paths.src.root}${common.config.paths.src.revSrc}`,
         `${common.config.paths.dist.root}/WEB-INF/*/*.shtml`,
         `!${common.config.paths.dist.root}/WEB-INF/common/*.shtml`
       ])
@@ -18,7 +18,7 @@ module.exports = function(gulp, common) {
       .pipe(gulp.dest(`${common.config.paths.dist.root}/WEB-INF`));
     var mobileStream = gulp
       .src([
-        `${common.config.paths.dist.root}${common.config.paths.dist
+        `${common.config.paths.src.root}${common.config.paths.src
           .revSrcMobile}`,
         `${common.config.paths.dist.root}/WEB-INF/m/*/*.shtml`,
         `!${common.config.paths.dist.root}/WEB-INF/m/common/*.shtml`

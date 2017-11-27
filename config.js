@@ -27,7 +27,10 @@ module.exports = {
       jsModMobile: `/js/m/mod/${fileName}.js`,
       jsLib: '/js/lib/**/*',
       json: `/pages/${projectName}/${fileName}.json`,
-      jsonMobile: `/pages/m/${projectName}/${fileName}.json`
+      jsonMobile: `/pages/m/${projectName}/${fileName}.json`,
+      revSrc: `/rev/*/*.json`,
+      revSrcMobile: `/rev/*/m/*.json`,
+      revDist: '/rev'
     },
     dist: {
       root: './dist',
@@ -41,10 +44,7 @@ module.exports = {
       htmlMobileCommon: '/WEB-INF/m/common',
       js: '/js${projectDir}',
       jsMobile: '/js/m${projectDir}',
-      jsLib: '/js/lib',
-      revSrc: `/rev/*/*.json`,
-      revSrcMobile: `/rev/*/m/*.json`,
-      revDist: '/rev'
+      jsLib: '/js/lib'
     },
     watch: {
       root: './src',

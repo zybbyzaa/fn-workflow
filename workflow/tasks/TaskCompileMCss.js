@@ -75,7 +75,7 @@ module.exports = function(gulp, common) {
         common.plugins.if(
           argv.env == 'prod',
           gulp.dest(
-            `${common.config.paths.dist.root}${common.config.paths.dist
+            `${common.config.paths.src.root}${common.config.paths.src
               .revDist}/css/m`
           )
         )
