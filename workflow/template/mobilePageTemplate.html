@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=0;">
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,user-scalable=0">
   <title>
     <!-- 请输入网页标题 -->
   </title>
@@ -27,8 +27,10 @@
 
 <body>
   <#import "/common/common.ftl" as s>
-    <div class="app-wrapper"></div>
-    <script src="<%- contextPath %>/js/lib/jquery-1.10.2.min.js"></script>
+    <div class="app-wrapper">
+      <#include "/m/common/common-header.shtml">
+        <#include "/m/common/common-footer.shtml">
+    </div>
     <script type="text/javascript">
       var contextPath = "<%- contextPath %>";
       var reg = new RegExp('(\\s|^)expand(\\s|$)');
@@ -36,13 +38,13 @@
       var navHeader = document.querySelector('.nav-header');
       menuBtn.addEventListener('click', function (e) {
         if (navHeader.className.match(reg)) {
-          obj.className = obj.className.replace(reg, ' ');
+          navHeader.className = navHeader.className.replace(reg, ' ');
         } else {
-          obj.className += " expand";
+          navHeader.className += " expand";
         }
       }, false);
     </script>
-    <script src="<%- contextPath %>/js/lib/require.js" data-main="<%- contextPath %>/js/m/loan/<%= name %>.js"></script>
+    <script src="<%- contextPath %>/js/lib/require.js" data-main="<%- contextPath %>/js/m/<%= projectName %>/<%= name %>.js"></script>
 </body>
 
 </html>

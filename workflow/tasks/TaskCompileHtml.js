@@ -20,10 +20,31 @@ module.exports = function(gulp, common) {
           /\*\.json$/,
           `${changedFileName}.json`
         )}`;
+    var srcCommonPath = [
+      `${common.config.paths.src.root}${common.config.paths.src.htmlCommon}`
+    ];
+    var srcMobileCommonPath = [
+      `${common.config.paths.src.root}${common.config.paths.src
+        .htmlMobileCommon}`
+    ];
     var distPath = `${common.config.paths.dist.root}${common.config.paths.dist
       .html}`;
     var distMobilePath = `${common.config.paths.dist.root}${common.config.paths
       .dist.htmlMobile}`;
+    var distCommonPath = `${common.config.paths.dist.root}${common.config.paths
+      .dist.htmlCommon}`;
+    var distMobileCommonPath = `${common.config.paths.dist.root}${common.config
+      .paths.dist.htmlMobileCommon}`;
+    var htmlCommonStream = gulp
+      .src(srcCommonPath)
+      .pipe(common.plugins.plumber(lib.handleErrors))
+      .pipe(common.plugins.changed(distCommonPath))
+      .pipe(gulp.dest(distCommonPath));
+    var htmlMobileCommonStream = gulp
+      .src(srcMobileCommonPath)
+      .pipe(common.plugins.plumber(lib.handleErrors))
+      .pipe(common.plugins.changed(distMobileCommonPath))
+      .pipe(gulp.dest(distMobileCommonPath));
     var htmlStream =
       platform !== 'mobile'
         ? gulp
@@ -72,12 +93,18 @@ module.exports = function(gulp, common) {
             )
             .pipe(gulp.dest(distMobilePath))
         : null;
+
     if (platform === 'mobile') {
       return htmlMobileStream.on('end', onStreamEnd);
     } else if (platform === 'pc') {
       return htmlStream.on('end', onStreamEnd);
     } else {
-      return merge2(htmlStream, htmlMobileStream).on('end', onStreamEnd);
+      return merge2(
+        htmlCommonStream,
+        htmlMobileCommonStream,
+        htmlStream,
+        htmlMobileStream
+      ).on('end', onStreamEnd);
     }
   });
 };

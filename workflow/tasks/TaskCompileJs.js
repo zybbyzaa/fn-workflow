@@ -15,17 +15,38 @@ module.exports = function(gulp, common) {
       .src.jsMobile}`;
     var srcLibPath = `${common.config.paths.src.root}${common.config.paths.src
       .jsLib}`;
+    var srcModPath = `${common.config.paths.src.root}${common.config.paths.src
+      .jsMod}`;
+    var srcMobileModPath = `${common.config.paths.src.root}${common.config.paths
+      .src.jsModMobile}`;
     var distPath = `${common.config.paths.dist.root}${common.config.paths.dist
       .js}`;
     var distMobilePath = `${common.config.paths.dist.root}${common.config.paths
       .dist.jsMobile}`;
     var distLibPath = `${common.config.paths.dist.root}${common.config.paths
       .dist.jsLib}`;
+    var distModPath = `${common.config.paths.dist.root}${common.config.paths
+      .dist.jsMod}`;
+    var distMobileModPath = `${common.config.paths.dist.root}${common.config
+      .paths.dist.jsMobileMod}`;
+
     var jsLibStream = gulp
       .src(srcLibPath)
       .pipe(common.plugins.plumber(lib.handleErrors))
       .pipe(common.plugins.changed(distLibPath))
       .pipe(gulp.dest(distLibPath));
+    var jsModStream = gulp
+      .src(srcModPath)
+      .pipe(common.plugins.plumber(lib.handleErrors))
+      .pipe(common.plugins.changed(distModPath))
+      .pipe(common.plugins.if(argv.env == 'prod', common.plugins.uglify()))
+      .pipe(gulp.dest(distModPath));
+    var jsMobileModStream = gulp
+      .src(srcMobileModPath)
+      .pipe(common.plugins.plumber(lib.handleErrors))
+      .pipe(common.plugins.changed(distMobileModPath))
+      .pipe(common.plugins.if(argv.env == 'prod', common.plugins.uglify()))
+      .pipe(gulp.dest(distMobileModPath));
     var jsStream =
       platform !== 'mobile'
         ? gulp
@@ -104,14 +125,20 @@ module.exports = function(gulp, common) {
             )
         : null;
     if (platform === 'mobile') {
-      return merge2(jsMobileStream, jsLibStream).on('end', onStreamEnd);
-    } else if (platform === 'pc') {
-      return merge2(jsStream, jsLibStream).on('end', onStreamEnd);
-    } else {
-      return merge2(jsStream, jsMobileStream, jsLibStream).on(
+      return merge2(jsMobileStream, jsLibStream, jsMobileModStream).on(
         'end',
         onStreamEnd
       );
+    } else if (platform === 'pc') {
+      return merge2(jsStream, jsLibStream, jsModStream).on('end', onStreamEnd);
+    } else {
+      return merge2(
+        jsStream,
+        jsMobileStream,
+        jsLibStream,
+        jsModStream,
+        jsMobileModStream
+      ).on('end', onStreamEnd);
     }
   });
 };
