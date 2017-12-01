@@ -32,6 +32,22 @@ module.exports = function(gulp, common) {
       ? common.config.paths.src.jsonMobile
       : common.config.paths.src.json}`;
   gulp.task('new_page', function() {
+    if (lib.fileExist(htmlPath)) {
+      common.plugins.util.log('页面文件已存在：', htmlPath);
+      return;
+    }
+    if (lib.fileExist(cssPath)) {
+      common.plugins.util.log('页面文件已存在：', cssPath);
+      return;
+    }
+    if (lib.fileExist(jsPath)) {
+      common.plugins.util.log('页面文件已存在：', jsPath);
+      return;
+    }
+    if (lib.fileExist(jsonPath)) {
+      common.plugins.util.log('页面文件已存在：', jsonPath);
+      return;
+    }
     gulp
       .src(srcHtmlPath)
       .pipe(
