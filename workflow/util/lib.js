@@ -95,6 +95,9 @@ var lib = {
   getFileDir: function(filePath) {
     return path.parse(filePath).dir;
   },
+  getSrcPath: function(type, isMobile, root) {
+    return `${root}`;
+  },
   checkDateFormat: function(_date) {
     if (_date < 10) {
       _date = '0' + _date;
