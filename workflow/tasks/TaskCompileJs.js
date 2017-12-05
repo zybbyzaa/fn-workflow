@@ -11,7 +11,7 @@ module.exports = function(gulp, common) {
     common.plugins.util.log('开始编译js');
     var isProd = argv.env === 'prod';
     var srcPath = `${common.config.paths.src.root}/js/**/*`;
-    var distPath = `${common.config.paths.dist.root}/js`;
+    var destPath = `${common.config.paths.dist.root}/js`;
     var libFilter = common.plugins.filter(
       file => {
         return !/\\lib\\/.test(file.path);
@@ -28,71 +28,46 @@ module.exports = function(gulp, common) {
       return !/((\\m)?\\mod\\)|\\lib\\/.test(file.path);
     });
 
-    return (gulp
-        .src(srcPath)
-        .pipe(common.plugins.plumber(lib.handleErrors))
-        .pipe(common.plugins.changed(distPath))
-        .pipe(libFilter)
-        .pipe(common.plugins.if(isProd, common.plugins.uglify()))
-        .pipe(modFilter)
-        .pipe(common.plugins.if(isProd, common.plugins.rev()))
-        .pipe(
-          through
-            .obj(function(file, enc, cb) {
-              if (file.isNull()) {
-                this.push(file);
-                return cb();
-              }
-              if (file.isStream()) {
-                this.emit(
-                  'error',
-                  new gutil.PluginError(PLUGIN_NAME, 'Streaming not supported')
-                );
-                return cb();
-              }
-              cb();
-            })
-            .pipe(modFilter.restore)
-            .pipe(libFilter.restore)
-        )
-        .pipe(gulp.dest(distPath))
-        .pipe(revFilter)
-        // .pipe(
-        //   common.plugins.if(
-        //     isProd,
-        //     through.obj(function(file, enc, cb) {
-        //       if (file.isNull()) {
-        //         this.push(file);
-        //         return cb();
-        //       }
-        //       if (file.isStream()) {
-        //         this.emit(
-        //           'error',
-        //           new gutil.PluginError(PLUGIN_NAME, 'Streaming not supported')
-        //         );
-        //         return cb();
-        //       }
-        //       console.log(file.path);
-        //       var mobileReg = new RegExp(/\\m$/);
-        //       if (mobileReg.test(file.base)) {
-        //         file.base = file.base.replace(mobileReg, '');
-        //       }
-        //       this.push(file);
-        //       cb();
-        //     })
-        //   )
-        // )
-        .pipe(common.plugins.if(isProd, common.plugins.rev.manifest()))
-        .pipe(
-          common.plugins.if(
-            isProd,
-            gulp.dest(
-              `${common.config.paths.src.root}${common.config.paths.src
-                .revDist}/js`
-            )
+    return gulp
+      .src(srcPath)
+      .pipe(common.plugins.plumber(lib.handleErrors))
+      .pipe(common.plugins.changed(destPath))
+      .pipe(libFilter)
+      .pipe(common.plugins.if(isProd, common.plugins.uglify()))
+      .pipe(modFilter)
+      .pipe(common.plugins.if(isProd, common.plugins.rev()))
+      .pipe(
+        through
+          .obj(function(file, enc, cb) {
+            if (file.isNull()) {
+              this.push(file);
+              return cb();
+            }
+            if (file.isStream()) {
+              this.emit(
+                'error',
+                new gutil.PluginError(PLUGIN_NAME, 'Streaming not supported')
+              );
+              return cb();
+            }
+            cb();
+          })
+          .pipe(modFilter.restore)
+          .pipe(libFilter.restore)
+      )
+      .pipe(gulp.dest(destPath))
+      .pipe(revFilter)
+      .pipe(common.plugins.if(isProd, common.plugins.rev.manifest()))
+      .pipe(
+        common.plugins.if(
+          isProd,
+          gulp.dest(
+            `${common.config.paths.src.root}${common.config.paths.src
+              .revDist}/js`
           )
         )
-        .on('end', onStreamEnd) );
+      )
+      .on('end', onStreamEnd);
   });
 };
 

@@ -1,6 +1,7 @@
 var del = require('del');
 var merge2 = require('merge2');
 var lib = require('../util/lib');
+var revCollector = require('../npm_fixed/gulp-rev-collector'); //使用本地修改的版本
 
 module.exports = function(gulp, common) {
   gulp.task('rev', function(cb) {
@@ -12,11 +13,13 @@ module.exports = function(gulp, common) {
     var commonFilter = common.plugins.filter(file => {
       return !/(\\m)?\\common\\/.test(file.path);
     });
+    var manifest = {};
+    var mutables = [];
     return gulp
       .src(srcPath)
       .pipe(commonFilter)
       .pipe(
-        common.plugins.revCollector({
+        revCollector({
           replaceReved: true
         })
       )
@@ -24,33 +27,5 @@ module.exports = function(gulp, common) {
       .on('end', () => {
         lib.task_log('rev');
       });
-    // var pcStream = gulp
-    //   .src([
-    //     `${common.config.paths.src.root}${common.config.paths.src.revSrc}`,
-    //     `${common.config.paths.dist.root}/WEB-INF/*/*.shtml`,
-    //     `!${common.config.paths.dist.root}/WEB-INF/common/*.shtml`
-    //   ])
-    //   .pipe(
-    //     common.plugins.revCollector({
-    //       replaceReved: true
-    //     })
-    //   )
-    //   .pipe(gulp.dest(`${common.config.paths.dist.root}/WEB-INF`));
-    // var mobileStream = gulp
-    //   .src([
-    //     `${common.config.paths.src.root}${common.config.paths.src
-    //       .revSrcMobile}`,
-    //     `${common.config.paths.dist.root}/WEB-INF/m/*/*.shtml`,
-    //     `!${common.config.paths.dist.root}/WEB-INF/m/common/*.shtml`
-    //   ])
-    //   .pipe(
-    //     common.plugins.revCollector({
-    //       replaceReved: true
-    //     })
-    //   )
-    //   .pipe(gulp.dest(`${common.config.paths.dist.root}/WEB-INF/m`));
-    // return merge2(pcStream, mobileStream).on('end', () => {
-    //   lib.task_log('rev');
-    // });
   });
 };
