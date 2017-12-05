@@ -41,10 +41,8 @@
   "scripts": {
     "clean": "gulp clean",
     "dev": "node ./bin/watch.js",
-    "watch":
-      "gulp clean && gulp build_dev --env dev --platform all --projectName",
-    "build":
-      "gulp clean && gulp build_dist --env prod --platform all --projectName",
+    "watch": "gulp clean && gulp build_dev --env dev --platform all --projectName",
+    "build": "gulp clean && gulp build_dist --env prod --platform all --projectName",
     "newPage": "node ./bin/newPage.js",
     "delPage": "node ./bin/delPage.js",
     "newMod": "node ./bin/newMod.js",
@@ -55,11 +53,26 @@
     "type": "git",
     "url": "https://github.com/zybbyzaa/fn-workflow"
   },
-  "keywords": ["Workflow", "F2E", "Sass", "CSS", "Sprite", "REM"],
+  "keywords": [
+    "Workflow",
+    "F2E",
+    "Sass",
+    "CSS",
+    "Sprite",
+    "REM"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/zybbyzaa/fn-workflow"
   },
   "homepage": "https://github.com/zybbyzaa/fn-workflow",
-  "readmeFilename": "README.md"
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "cz-conventional-changelog": "^2.1.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
 }
