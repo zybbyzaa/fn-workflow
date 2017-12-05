@@ -13,8 +13,6 @@ module.exports = function(gulp, common) {
     var commonFilter = common.plugins.filter(file => {
       return !/(\\m)?\\common\\/.test(file.path);
     });
-    var manifest = {};
-    var mutables = [];
     return gulp
       .src(srcPath)
       .pipe(commonFilter)

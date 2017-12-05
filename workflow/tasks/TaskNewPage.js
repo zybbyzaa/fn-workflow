@@ -4,82 +4,72 @@ var through = require('through2');
 var lib = require('../util/lib');
 
 module.exports = function(gulp, common) {
+  var config = common.config,
+    plugins = common.plugins;
   var name = argv.name,
     isMobile = argv.m,
-    projectName = argv.projectName || common.config.projectName;
-  var srcHtmlPath = isMobile
-      ? common.config.paths.tpl.mhtml
-      : common.config.paths.tpl.html,
-    srcCssPath = isMobile
-      ? common.config.paths.tpl.mcss
-      : common.config.paths.tpl.css,
-    srcJsPath = common.config.paths.tpl.js,
-    srcJsonPath = common.config.paths.tpl.json;
+    projectName = argv.projectName || config.projectName;
+  var srcHtmlPath = isMobile ? config.paths.tpl.mhtml : config.paths.tpl.html,
+    srcCssPath = isMobile ? config.paths.tpl.mcss : config.paths.tpl.css,
+    srcJsPath = config.paths.tpl.js,
+    srcJsonPath = config.paths.tpl.json;
   // var htmlName = `${name}.shtml`,
   //   cssName = `style-${name}.scss`,
   //   jsName = `${name}.js`,
   //   jsonName = `${name}.json`;
-  var htmlPath = `${common.config.paths.src.root}${isMobile
-      ? common.config.paths.src.htmlMobile
-      : common.config.paths.src.html}`,
-    cssPath = `${common.config.paths.src.root}${isMobile
-      ? common.config.paths.src.cssMobile
-      : common.config.paths.src.css}`,
-    jsPath = `${common.config.paths.src.root}${isMobile
-      ? common.config.paths.src.jsMobile
-      : common.config.paths.src.js}`,
-    jsonPath = `${common.config.paths.src.root}${isMobile
-      ? common.config.paths.src.jsonMobile
-      : common.config.paths.src.json}`;
+  var htmlPath = `${config.paths.src.root}${isMobile
+      ? config.paths.src.htmlMobile
+      : config.paths.src.html}`,
+    cssPath = `${config.paths.src.root}${isMobile
+      ? config.paths.src.cssMobile
+      : config.paths.src.css}`,
+    jsPath = `${config.paths.src.root}${isMobile
+      ? config.paths.src.jsMobile
+      : config.paths.src.js}`,
+    jsonPath = `${config.paths.src.root}${isMobile
+      ? config.paths.src.jsonMobile
+      : config.paths.src.json}`;
   gulp.task('new_page', function() {
-    if (lib.fileExist(htmlPath)) {
-      common.plugins.util.log('页面文件已存在：', htmlPath);
-      return;
-    }
-    if (lib.fileExist(cssPath)) {
-      common.plugins.util.log('页面文件已存在：', cssPath);
-      return;
-    }
-    if (lib.fileExist(jsPath)) {
-      common.plugins.util.log('页面文件已存在：', jsPath);
-      return;
-    }
-    if (lib.fileExist(jsonPath)) {
-      common.plugins.util.log('页面文件已存在：', jsonPath);
+    if (
+      lib.fileExist(htmlPath) ||
+      lib.fileExist(cssPath) ||
+      lib.fileExist(jsPath) ||
+      lib.fileExist(jsonPath)
+    ) {
       return;
     }
     gulp
       .src(srcHtmlPath)
       .pipe(
-        common.plugins.ejs({
+        plugins.ejs({
           name: name,
           projectName: projectName,
           contextPath: '${rc.contextPath}',
           common: '<#import "/common/common.ftl" as s>'
         })
       )
-      .pipe(common.plugins.rename(lib.getFileBaseName(htmlPath)))
+      .pipe(plugins.rename(lib.getFileBaseName(htmlPath)))
       .pipe(gulp.dest(lib.getFileDir(htmlPath)))
       .on('end', function() {
-        common.plugins.util.log('创建文件' + htmlPath + '成功！');
+        plugins.util.log('创建文件' + htmlPath + '成功！');
       });
     gulp
       .src(srcCssPath)
-      .pipe(common.plugins.rename(lib.getFileBaseName(cssPath)))
+      .pipe(plugins.rename(lib.getFileBaseName(cssPath)))
       .pipe(gulp.dest(lib.getFileDir(cssPath)))
       .on('end', function() {
-        common.plugins.util.log('创建文件' + cssPath + '成功！');
+        plugins.util.log('创建文件' + cssPath + '成功！');
       });
     gulp
       .src(srcJsPath)
-      .pipe(common.plugins.rename(lib.getFileBaseName(jsPath)))
+      .pipe(plugins.rename(lib.getFileBaseName(jsPath)))
       .pipe(gulp.dest(lib.getFileDir(jsPath)))
       .on('end', function() {
-        common.plugins.util.log('创建文件' + jsPath + '成功！');
+        plugins.util.log('创建文件' + jsPath + '成功！');
       });
     gulp
       .src(srcJsonPath)
-      .pipe(common.plugins.rename(lib.getFileBaseName(jsonPath)))
+      .pipe(plugins.rename(lib.getFileBaseName(jsonPath)))
       .pipe(
         through.obj(function(file, enc, cb) {
           if (file.isNull()) {
@@ -110,7 +100,7 @@ module.exports = function(gulp, common) {
       )
       .pipe(gulp.dest(lib.getFileDir(jsonPath)))
       .on('end', function() {
-        common.plugins.util.log('创建文件' + jsonPath + '成功！');
+        plugins.util.log('创建文件' + jsonPath + '成功！');
       });
   });
 };

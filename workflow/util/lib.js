@@ -48,6 +48,7 @@ var lib = {
     try {
       var stat = fs.statSync(dirPath);
       if (stat.isDirectory()) {
+        common.plugins.util.log('文件夹已存在：', dirPath);
         return true;
       } else {
         return false;
@@ -64,6 +65,7 @@ var lib = {
     try {
       var stat = fs.statSync(filePath);
       if (stat.isFile()) {
+        common.plugins.util.log('文件已存在：', filePath);
         return true;
       } else {
         return false;
@@ -94,9 +96,6 @@ var lib = {
   },
   getFileDir: function(filePath) {
     return path.parse(filePath).dir;
-  },
-  getSrcPath: function(type, isMobile, root) {
-    return `${root}`;
   },
   checkDateFormat: function(_date) {
     if (_date < 10) {

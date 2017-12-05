@@ -7,35 +7,38 @@ var argv = require('yargs').argv,
 var lib = require('../util/lib');
 
 module.exports = function(gulp, common) {
+  var config = common.config,
+    plugins = common.plugins;
   gulp.task('compile_js', function() {
-    common.plugins.util.log('开始编译js');
+    plugins.util.log('开始编译js');
     var isProd = argv.env === 'prod';
-    var srcPath = `${common.config.paths.src.root}/js/**/*`;
-    var destPath = `${common.config.paths.dist.root}/js`;
-    var libFilter = common.plugins.filter(
+    var srcPath = `${config.paths.src.root}/js/**/*`;
+    var destPath = `${config.paths.dist.root}/js`;
+    var libFilter = plugins.filter(
       file => {
         return !/\\lib\\/.test(file.path);
       },
       { restore: true }
     );
-    var modFilter = common.plugins.filter(
+    var modFilter = plugins.filter(
       file => {
         return !/(\\m)?\\mod\\/.test(file.path);
       },
       { restore: true }
     );
-    var revFilter = common.plugins.filter(file => {
+    var revFilter = plugins.filter(file => {
       return !/((\\m)?\\mod\\)|\\lib\\/.test(file.path);
     });
 
     return gulp
       .src(srcPath)
-      .pipe(common.plugins.plumber(lib.handleErrors))
-      .pipe(common.plugins.changed(destPath))
+      .pipe(plugins.plumber(lib.handleErrors))
+      .pipe(plugins.changed(destPath))
+      .pipe(plugins.logger({ showChange: true }))
       .pipe(libFilter)
-      .pipe(common.plugins.if(isProd, common.plugins.uglify()))
+      .pipe(plugins.if(isProd, plugins.uglify()))
       .pipe(modFilter)
-      .pipe(common.plugins.if(isProd, common.plugins.rev()))
+      .pipe(plugins.if(isProd, plugins.rev()))
       .pipe(
         through
           .obj(function(file, enc, cb) {
@@ -44,10 +47,6 @@ module.exports = function(gulp, common) {
               return cb();
             }
             if (file.isStream()) {
-              this.emit(
-                'error',
-                new gutil.PluginError(PLUGIN_NAME, 'Streaming not supported')
-              );
               return cb();
             }
             cb();
@@ -57,21 +56,16 @@ module.exports = function(gulp, common) {
       )
       .pipe(gulp.dest(destPath))
       .pipe(revFilter)
-      .pipe(common.plugins.if(isProd, common.plugins.rev.manifest()))
+      .pipe(plugins.if(isProd, plugins.rev.manifest()))
       .pipe(
-        common.plugins.if(
+        plugins.if(
           isProd,
-          gulp.dest(
-            `${common.config.paths.src.root}${common.config.paths.src
-              .revDist}/js`
-          )
+          gulp.dest(`${config.paths.src.root}${config.paths.src.revDist}/js`)
         )
       )
-      .on('end', onStreamEnd);
+      .on('end', function() {
+        lib.task_log('compile_js');
+        lib.reloadhandle();
+      });
   });
 };
-
-function onStreamEnd() {
-  lib.task_log('compile_js');
-  lib.reloadhandle();
-}
