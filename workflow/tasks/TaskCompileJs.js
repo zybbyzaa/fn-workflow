@@ -14,21 +14,15 @@ module.exports = function(gulp, common) {
     var isProd = argv.env === 'prod';
     var srcPath = `${config.paths.src.root}/js/**/*`;
     var destPath = `${config.paths.dist.root}/js`;
-    var libFilter = plugins.filter(
-      file => {
-        return !/\\lib\\/.test(file.path);
-      },
-      { restore: true }
-    );
-    var modFilter = plugins.filter(
-      file => {
-        return !/(\\m)?\\mod\\/.test(file.path);
-      },
-      { restore: true }
-    );
-    var revFilter = plugins.filter(file => {
-      return !/((\\m)?\\mod\\)|\\lib\\/.test(file.path);
+    var libFilter = plugins.filter(file => !/\\lib\\/.test(file.path), {
+      restore: true
     });
+    var modFilter = plugins.filter(file => !/(\\m)?\\mod\\/.test(file.path), {
+      restore: true
+    });
+    var revFilter = plugins.filter(
+      file => !/((\\m)?\\mod\\)|\\lib\\/.test(file.path)
+    );
 
     return gulp
       .src(srcPath)
