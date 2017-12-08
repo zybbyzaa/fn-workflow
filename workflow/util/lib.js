@@ -31,7 +31,7 @@ var lib = {
           plugin += '.js';
         }
 
-        var filepath = path.resolve(__dirname, plugin);
+        var filepath = path.resolve(__dirname, '../plugins', plugin);
 
         if (fs.existsSync(filepath)) {
           require(filepath)(common.config);

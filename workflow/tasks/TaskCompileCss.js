@@ -6,7 +6,6 @@ var postcssAssets = require('postcss-assets');
 var postcssPxtorem = require('postcss-pxtorem'); // 转换 px 为 rem
 var postcssSprites = require('postcss-sprites');
 var postcssUrlrev = require('postcss-urlrev');
-var hash = require('rev-hash');
 var runSequence = require('run-sequence');
 var through = require('through2');
 var argv = require('yargs').argv;
