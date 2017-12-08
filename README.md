@@ -4,11 +4,11 @@
 
 ## 功能特性
 
-####1. HTML
+#### 1. HTML
 - [x] freemarker语法解析（gulp-freemarker）
 - [x] 文件后缀重命名（gulp-rename）
 
-####2. CSS
+#### 2. CSS
 - [x] sass编译（gulp-sass）
 - [x] postcss预处理（gulp-postcss）
     * 自动添加浏览器前缀 （autoprefixer）
@@ -20,14 +20,14 @@
 - [x] css文件防缓存（gulp-rev）
 - [ ] css文件压缩（gulp-cssnano）
 
-####3. JS
+#### 3. JS
 - [x] js压缩（gulp-uglify
 - [x] js文件防缓存（gulp-rev）
 
-####4. IMAGE
+#### 4. IMAGE
 - [ ] 图片压缩
 
-####5. SERVER
+#### 5. SERVER
 - [x] server热重启，浏览器自动刷新（brower-sync）
 - [x] 测试环境接口代理（http-proxy-middleware）
 
